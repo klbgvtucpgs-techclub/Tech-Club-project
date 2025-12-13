@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Details Submission Form</title>
+    <link rel="stylesheet" href="../css/enter.css">
+      
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h1>Faculty Profile Submission</h1>
+        <form id="faculty-submission-form">
+
+            <section class="form-section">
+                <h2>Contact & Background</h2>
+                <div class="form-grid">
+                    <div class="photo-upload-container">
+                        <div id="photo-preview-container">
+                            <label>Current Photo:</label>
+                            <div id="photo-preview"></div>
+                            <button type="button" id="remove-photo-btn" class="remove-button" style="display:none; margin-top: 5px;">Remove Photo</button>
+                        </div>
+                        <label for="photo">Upload/Replace Faculty Photo (.jpg/.png):</label>
+                        <input type="file" id="photo" name="photo" accept="image/jpeg, image/png">
+                    </div>
+                    <div>
+                        <label for="name">Full Name (Dr./Prof.):</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div>
+                        <label for="designation">Designation:</label>
+                        <select id="designation" name="designation" required>
+                            <option value="Assistant Professor">Assistant Professor</option>
+                            <option value="Associate Professor">Associate Professor</option>
+                            <option value="Professor">Professor</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="department">Department:</label>
+                        <input type="text" id="department" name="department" required>
+                    </div>
+                    <div>
+                        <label for="email">College Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="employee-id">Employee ID:</label>
+                        <input type="text" id="employee-id" name="employee-id" required>
+                    </div>
+                    <div>
+                        <label for="qualification">Highest Qualification:</label>
+                        <input type="text" id="qualification" name="qualification" value="Doctorates (Ph.D.)" required>
+                    </div>
+                    <div class="full-width">
+                        <label for="specialization">Specialization (Comma Separated):</label>
+                        <textarea id="specialization" name="specialization" rows="2" required></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2> Previous Work/Position Held</h2>
+                <div id="previous-work-entries">
+                    </div>
+                <button type="button" class="add-button" onclick="addPreviousWorkEntry()">+ Add Previous Position</button>
+            </section>
+
+            <section class="form-section">
+                <h2> Research Papers (Peer-reviewed Journals)</h2>
+                <div id="research-paper-entries">
+                    </div>
+                <button type="button" class="add-button" onclick="addResearchPaperEntry()">+ Add Paper</button>
+            </section>
+
+            <section class="form-section">
+                <h2> Research Guidance & Projects</h2>
+                <div class="form-grid">
+                    <div>
+                        <label for="thesis-submitted">Total PG Thesis Submitted (Count):</label>
+                        <input type="number" id="thesis-submitted" name="thesis-submitted" min="0" value="0">
+                    </div>
+                    <div>
+                        <label for="degree-awarded">Total PG Degrees Awarded (Count):</label>
+                        <input type="number" id="degree-awarded" name="degree-awarded" min="0" value="0">
+                    </div>
+                </div>
+                <h3 style="margin-top: 20px;">Ongoing/Completed Research Projects</h3>
+                <div id="project-entries">
+                    </div>
+                <button type="button" class="add-button" onclick="addProjectEntry()">+ Add Project</button>
+            </section>
+
+            <section class="form-section">
+                <h2> Awards & Professional Activities</h2>
+                <div id="award-entries">
+                    </div>
+                <button type="button" class="add-button" onclick="addAwardEntry()">+ Add Award/Activity</button>
+            </section>
+
+
+            <button type="submit">Submit Faculty Profile</button>
+        </form>
+    </div>
+
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('confirmation-modal')">&times;</span>
+            <div class="modal-profile-body" style="text-align: center;">
+                <h1 style="color: #4CAF50;">✅ Submission Successful!</h1>
+                <p>Thank you, **<span id="submitted-faculty-name"></span>**.</p>
+                <p>Your profile details have been successfully submitted and are pending review.</p>
+                <p>Employee ID: **<span id="submitted-faculty-id"></span>**</p>
+                <button onclick="closeModal('confirmation-modal')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; margin-top: 20px; cursor: pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="crop-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px; padding: 20px;">
+            <span class="close-button" onclick="closeCropModal()">&times;</span>
+            <h2 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Crop Image (Circular Profile)</h2>
+            <div style="text-align: center;">
+                <canvas id="crop-canvas" width="300" height="300" style="border: 2px solid #007bff; border-radius: 5px;"></canvas>
+                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">The image will be center-cropped to the circular area.</p>
+            </div>
+            <div style="text-align: right; margin-top: 20px;">
+                <button type="button" class="add-button" id="save-crop-btn" style="float: none; margin: 0; background-color: #007bff;" >Crop & Save Photo</button>
+            </div>
+        </div>
+    </div>
+    <script src="../js/enter.js"></script>
+</body>
+
+</html>
