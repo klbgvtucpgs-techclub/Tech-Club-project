@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Faculty Academic CV – Exact Input & Preview</title>
+<link rel="stylesheet" href="styles2.css" />
+</head>
+
+<body>
+
+<div class="actions">
+<button onclick="togglePreview()">Preview Mode</button>
+<button onclick="downloadJSON()">downloadJSON</button>"
+<button onclick="window.print()">Print / PDF</button>
+<button type="button" id="submitBtn">Submit</button>
+</div>
+
+<div class="header">
+<h2>Faculty Details NAAC CV builder </h2>
+<p>(A detailed Academic CV)</p>
+</div>
+
+<img id="photoPreview" class="photo-box">
+<input type="file" id="photo"
+accept ="image/*">
+<div class ="details-grid">
+
+<label>Name:</label>
+<input type="text" id="name">
+
+<label>Gender:</label>
+<select id="gender">
+  <option value="">Select</option>
+  <option>Male</option>
+  <option>Female</option>
+</select>
+
+<label>Qualification:</label>
+<select id="qualification">
+<option value="">Select</option>
+<option>Bachelor’s</option>
+<option>Master’s</option>
+<option>Ph.D</option>
+<option>Post Doctorate</option>
+</select>
+
+
+<label>Designation:</label>
+<select id="designation">
+  <option>Assistant Professor</option>
+  <option>Assistant Professor Grade – I</option>
+<option>Assistant Professor Grade – II</option>
+<option>Assistant Professor (Adhoc)</option>
+<option>Associate Professor</option>
+<option>Professor</option>
+<option>Research Scholar</option>
+</select>
+
+<label>Department:</label>
+<select id="department">
+  <option>MBA</option>
+<option>CSE (MCA)</option>
+<option>Computer Science Engineering</option>
+<option>Electronics & Communication Engineering</option>
+<option>Mechanical Engineering</option>
+<option>Civil Engineering</option>
+<option>Information Science Engineering</option>
+</select>
+
+<label>Employee ID:</label>
+<input type="text" id="empid">
+
+<label>Faculty ID:</label>
+<input type="text" id="facid">
+
+</div>
+
+<!--</div><label>Name:</label><input type="text"></div>
+<div>Gender:</div>
+<div>
+<select>
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+
+<div>Qualification:</div>
+<div>
+<select>
+<option value="">Select</option>
+<option>Bachelor’s</option>
+<option>Master’s</option>
+<option>Ph.D</option>
+<option>Post Doctorate</option>
+</select>
+</div>
+
+<div>Designation:</div>
+<div>
+<select>
+<option value="">Select</option>
+<option>Assistant Professor</option>
+<option>Assistant Professor Grade – I</option>
+<option>Assistant Professor Grade – II</option>
+<option>Assistant Professor (Adhoc)</option>
+<option>Associate Professor</option>
+<option>Professor</option>
+<option>Research Scholar</option>
+</select>
+</div>
+
+<div>Department:</div>
+<div>
+<select>
+<option value="">Select</option>
+<option>MBA</option>
+<option>CSE (MCA)</option>
+<option>Computer Science Engineering</option>
+<option>Electronics & Communication Engineering</option>
+<option>Mechanical Engineering</option>
+<option>Civil Engineering</option>
+<option>Information Science Engineering</option>
+</select>
+</div>
+
+<div>Employee ID No:</div>
+<div><input></div>
+
+<div>Faculty ID:</div>
+<div><input></div>
+</div>
+-->
+
+<div class="section-heading">Contact Details:</div>
+
+<ol>
+<li>Landline No.: <input></li>
+<li>Mobile Number: <input></li>
+<li>Email: <input></li>
+</ol>
+
+<div class="section-heading">Previous work / Position held:</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Institutions</th>
+<th>Position held</th>
+<th>Period</th>
+</tr>
+<tr><td>1</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>2</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>3</td><td><input></td><td><input></td><td><input></td></tr>
+</table>
+
+<div class="section-heading clear-float">Courses Taught:</div>
+<table>
+<tr><th>Sl. No.</th><th>Courses Taught</th></tr>
+<tr><td>1</td><td><input></td></tr>
+<tr><td>2</td><td><input></td></tr>
+<tr><td>3</td><td><input></td></tr>
+<tr><td>4</td><td><input></td></tr>
+<tr><td>5</td><td><input></td></tr>
+</table>
+
+<div class="section-heading">Areas of Specialization:</div>
+<textarea></textarea>
+
+<!-- ================== 01 ================== -->
+<div class="section-heading">
+01. Publications: Research papers in Peer reviewed or UGC listed Journals
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Authors Detail</th>
+<th>Title / Article Name</th>
+<th>Journal Name</th>
+<th>ISSN / ISBN</th>
+<th>URL</th>
+<th>Upload first sheet</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td><td><input></td>
+<td><input></td><td><input></td><td><input></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 02 ================== -->
+<div class="section-heading">
+02. Book Chapter / Book Publications
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Name of Book / Chapter</th>
+<th>ISSN / ISBN</th>
+<th>International / National / Regional</th>
+<th>Editor / Author</th>
+<th>ISSN / ISBN</th>
+<th>URL</th>
+<th>Upload first sheet</th>
+</tr>
+<tr>
+<td>1</td>
+<td><input></td><td><input></td><td><input></td>
+<td><input></td><td><input></td><td><input></td>
+<td><input></td><td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 03 ================== -->
+<div class="section-heading">
+03. Awards
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Title of Award & Agency</th>
+<th>National</th>
+<th>International</th>
+<th>Date of Award</th>
+<th>Upload certificate</th>
+</tr>
+<tr>
+<td>1</td>
+<td><input></td><td><input></td><td><input></td>
+<td><input></td><td><input></td><td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 04 ================== -->
+<div class="section-heading">
+04. ICT Mediated Teaching Learning Pedagogy
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Title</th>
+<th>Content</th>
+<th>URL / Link</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><textarea></textarea></td><td><input></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 05 ================== -->
+<div class="section-heading">
+05. Research Guidance
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Number Enrolled</th>
+<th>Thesis Submitted</th>
+<th>Degree Awarded</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><input></td><td><input></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 06 ================== -->
+<div class="section-heading">
+06. PG Dissertation
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Student Name</th>
+<th>USN</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><input></td><td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 07 ================== -->
+<div class="section-heading">
+07. ongoing/completed Research Projects & Consultancies project:assign API as per the components defined in
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Title</th>
+<th>Agency</th>
+<th>Period</th>
+<th>Principal / Co-PI</th>
+<th>Grant (Rs. Lakhs)</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><input></td><td><input></td>
+<td><input></td><td><input></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 08 ================== -->
+<div class="section-heading">
+08. Patent Information
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Title</th>
+<th>Patent Number</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><input></td><td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 09 ================== -->
+<div class="section-heading">
+09. Conference Papers / Proceedings Assign API as per the components defined in Annexure
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Paper / Proceedings</th>
+<th>ISSN / ISBN</th>
+<th>Conference Details</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><input></td><td><textarea></textarea></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 10 ================== -->
+<div class="section-heading">
+10. Seminars / Workshops / Conferences
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Title</th>
+<th>Details</th>
+<th>Date, Place, Venue</th>
+<th>Role</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><textarea></textarea></td>
+<td><input></td><td><input></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 11 ================== -->
+<div class="section-heading">
+11. Invited Lectures / Paper Assign
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Lecture Name</th>
+<th>Date</th>
+<th>Location</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><input></td><td><input></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 12 ================== -->
+<div class="section-heading">
+12. Other Details
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Details</th>
+<th>Date</th>
+<th>Location</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><textarea></textarea></td>
+<td><input></td><td><input></td>
+<td><input type="file"></td>
+</tr>
+</table>
+
+<!-- ================== 13 ================== -->
+<div class="section-heading">
+13. Membership in Professional Bodies
+</div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Academic Year</th>
+<th>Details / BoE / BoS</th>
+<th>Institute</th>
+<th>Date / Period</th>
+<th>Place</th>
+<th>Upload</th>
+</tr>
+<tr>
+<td>1</td><td><input></td><td><input></td>
+<td><input></td><td><input></td>
+<td><input></td><td><input type="file"></td>
+</tr>
+</table>
+<aside id="previewArea" class="hidden">
+    <div id="previewContent"></div>
+    <button id="closePreview">Close Preview</button>
+  </aside>
+
+  <footer>
+    <small>Built from NAAC faculty CV format. Data stored locally in your browser only. See source PDF used: uploaded
+      file.</small>
+  </footer>
+
+  <script src="script2.js"></script>
+  </body>
+
+</html>
+
