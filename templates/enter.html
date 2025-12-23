@@ -4,135 +4,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty Details Submission Form</title>
-    <link rel="stylesheet" href="../css/enter.css">
-      
+    <title>Faculty Details Submission Form (NAAC Compliant)</title>
+    <link rel="stylesheet" href="../static/css/enter.css">
+
 </head>
 
 <body>
 
     <div class="form-container">
-        <h1>Faculty Profile Submission</h1>
+        <h1>Faculty Profile Submission (NAAC Format)</h1>
         <form id="faculty-submission-form">
 
             <section class="form-section">
-                <h2>Contact & Background</h2>
+                <h2>1. Contact & Background</h2>
                 <div class="form-grid">
                     <div class="photo-upload-container">
                         <div id="photo-preview-container">
                             <label>Current Photo:</label>
                             <div id="photo-preview"></div>
-                            <button type="button" id="remove-photo-btn" class="remove-button" style="display:none; margin-top: 5px;">Remove Photo</button>
+                            <button type="button" id="remove-photo-btn" class="remove-button"
+                                style="display:none; margin-top: 5px;">Remove Photo</button>
                         </div>
                         <label for="photo">Upload/Replace Faculty Photo (.jpg/.png):</label>
                         <input type="file" id="photo" name="photo" accept="image/jpeg, image/png">
                     </div>
                     <div>
-                        <label for="name">Full Name (Dr./Prof.):</label>
+                        <label for="name-prefix">Title:</label>
+                        <select id="name-prefix" name="name-prefix" required>
+                            <option value="Dr.">Dr.</option>
+                            <option value="Prof.">Prof.</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div>
                         <label for="designation">Designation:</label>
                         <select id="designation" name="designation" required>
                             <option value="Assistant Professor">Assistant Professor</option>
+                            <option value="Assistant Professor Grade-1">Assistant Professor Grade-1</option>
+                            <option value="Assistant Professor Grade-2">Assistant Professor Grade-2</option>
+                            <option value="Assistant Professor (Adhoc)">Assistant Professor (Adhoc)</option>
                             <option value="Associate Professor">Associate Professor</option>
                             <option value="Professor">Professor</option>
+                            <option value="Research Scholar">Research Scholar</option>
                         </select>
                     </div>
                     <div>
                         <label for="department">Department:</label>
-                        <input type="text" id="department" name="department" required>
+                        <select id="department" name="department" required>
+                            <option value="MBA">MBA</option>
+                            <option value="CSE (MCA)">CSE (MCA)</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Computer Science Engineering">Computer Science Engineering</option>
+                            <option value="Electronics & Communication">Electronics & Communication</option>
+                        </select>
                     </div>
                     <div>
-                        <label for="email">College Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div>
-                        <label for="employee-id">Employee ID:</label>
+                        <label for="employee-id">Employee ID No:</label>
                         <input type="text" id="employee-id" name="employee-id" required>
                     </div>
                     <div>
-                        <label for="qualification">Highest Qualification:</label>
-                        <input type="text" id="qualification" name="qualification" value="Doctorates (Ph.D.)" required>
+                        <label for="Faculty-id">Faculty ID No:</label>
+                        <input type="text" id="Faculty-id" name="Faculty" required>
                     </div>
-                    <div class="full-width">
-                        <label for="specialization">Specialization (Comma Separated):</label>
-                        <textarea id="specialization" name="specialization" rows="2" required></textarea>
+                    <div>
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="phone">Mobile Number:</label>
+                        <input type="tel" id="phone" name="phone">
                     </div>
                 </div>
             </section>
 
-            <section class="form-section">
-                <h2> Previous Work/Position Held</h2>
-                <div id="previous-work-entries">
-                    </div>
-                <button type="button" class="add-button" onclick="addPreviousWorkEntry()">+ Add Previous Position</button>
-            </section>
+            <section class="form-section"></section>
 
-            <section class="form-section">
-                <h2> Research Papers (Peer-reviewed Journals)</h2>
-                <div id="research-paper-entries">
+                <h3>Previous Work/Position Held</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header previous-work-grid">
+                        <span>Institution</span>
+                        <span>Position Held</span>
+                        <span>From (YYYY)</span>
+                        <span>To (YYYY)</span>
                     </div>
-                <button type="button" class="add-button" onclick="addResearchPaperEntry()">+ Add Paper</button>
-            </section>
-
-            <section class="form-section">
-                <h2> Research Guidance & Projects</h2>
-                <div class="form-grid">
-                    <div>
-                        <label for="thesis-submitted">Total PG Thesis Submitted (Count):</label>
-                        <input type="number" id="thesis-submitted" name="thesis-submitted" min="0" value="0">
-                    </div>
-                    <div>
-                        <label for="degree-awarded">Total PG Degrees Awarded (Count):</label>
-                        <input type="number" id="degree-awarded" name="degree-awarded" min="0" value="0">
-                    </div>
+                    <div id="previous-work-entries"></div>
                 </div>
-                <h3 style="margin-top: 20px;">Ongoing/Completed Research Projects</h3>
-                <div id="project-entries">
+                <button type="button" class="add-button" data-type="previousWork">➕ Add Previous Work</button>
+
+                <h3>Course Tauhgt</h3>
+                        <div class="data-table-container">
+                            <div class="data-entry-header Course-tauhgt-grid">
+                            <span>SI No.</span>
+                            <span>course Tauhgt</span>
+                        </div>
                     </div>
-                <button type="button" class="add-button" onclick="addProjectEntry()">+ Add Project</button>
-            </section>
+                    <div id="Course-tauhgt"></div>
+                </div>
+                <button type="button" class="add-button" data-type="Coursetauhgt">➕ Add Course Tauhgt</button>
 
-            <section class="form-section">
-                <h2> Awards & Professional Activities</h2>
-                <div id="award-entries">
+
+                <h3>01. Publications: Research papers in peer reviewed or UGC listed Journal in the Choronogical order </h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header publication-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Authors Details</span>
+                        <span>Title/Article Name</span>
+                        <span>Journal Name</span>
+                        <span>ISSN/ISBN No.</span>
+                        <span>URL</span>
+                        <span>Upload first Sheet</span>
                     </div>
-                <button type="button" class="add-button" onclick="addAwardEntry()">+ Add Award/Activity</button>
-            </section>
+                    <div id="publication-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="publications">➕ Add Publication</button>
+
+                <h3>02. Book Chapters/Book Publications (other than research papers)</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header book-publication-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Name of the Chapters/Book Published</span>
+                        <span>Iternational/National/regional</span>
+                        <span>Editor/Author</span>
+                        <span>ISSN/ISBN No.</span>
+                        <span>URL</span>
+                        <span>Upload first Sheet</span>
+                    </div>
+                    <div id="book-publication-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="bookpublications">➕ Add book-Publication</button>
+
+                <h3>03. Awards (Enclose Certificate)</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header award-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Title of the award and Awarding and the Awarding Agency/Institution</span>
+                        <span>Iternational/National/</span>
+                        <span>Date of Award</span>
+                        <span>Upload Certificate</span>
+                    </div>  
+                    <div id="award-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="awards">➕ Add Award</button>
 
 
-            <button type="submit">Submit Faculty Profile</button>
+                <h3>04. Creation of ICT mediated Teaching Learning Pedagogy and content and development of new and innovation course and curriculum</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header creation-ict-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Title</span>
+                        <span>content</span>
+                        <span>URL/link</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="creation-of-ICT"></div>
+                </div>
+                <button type="button" class="add-button" data-type="creationofICT">➕ Add ICT</button>
+
+                <h3>05. Research Guidance (enclosed certifcates/Notificatio):Assign API as per the components defined in Annexure</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header Research-guid-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Number enrolled</span>
+                        <span>Thesis Submitted</span>
+                        <span>Degree Awarded</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="research-guidance-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="researchGuidance">➕ Add Research Guidance award</button>
+
+                <h3>06.PG Dissertation</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header pg-grid">
+                        <span>SI No.</span>
+                        <span>Student Name</span>
+                        <span>USN</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="pg-dissertation-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="bookpublications">➕ Add book-Publication</button>
+
+                <h3>07. Ongoing/Completed Research projects and consultancies Project: Assign API as per components define in</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header project-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Title</span>
+                        <span>Agency</span>
+                        <span>Period</span>
+                        <span>Principle Investigator/Co Principle Investigator</span>
+                        <span>Grant/Amount (in Rs)</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="research-project-entries">
+                        </div>
+                </div>
+                <button type="button" class="add-button" data-type="researchProjects">➕ Add Research Project</button>
+                
+                <h3>08. Patent Information</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header patent-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Title(Patents)</span>
+                        <span>Patent Number</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="patent-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="patententries">➕ Add patent details</button>
+
+                <h3>09. Conference paper/ proceeding Assign Api as per the components defined in Annexure</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header book-publication-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Conference papers/proceeding</span>
+                        <span>ISSN/ISBN No</span>
+                        <span>Details of the Conference International/National/State/or University Level</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="Conference-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="researchGuidance">➕ Add Research Guidance award</button>
+
+                <h3>10.Seminar/workshops/Conferences</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header Seminars-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Title of Seminar/Workshop/Conference</span>
+                        <span>Details of  Seminar ,Workshops,Conferences</span>
+                        <span>Degree Awarded</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="seminar-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="Seminar">➕ Add Seminar </button>
+
+                <h3>11. Invited Lectures/paper Assign</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header Lectures-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Lecture Name</span>
+                        <span>Date(DD-MM-YYYY)</span>
+                        <span>Location</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="lectures-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="Lectures">➕ Add Lectures</button>
+
+                <h3>12. Other details</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header other-details-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Details</span>
+                        <span>Date(DD-MM-YYYY)</span>
+                        <span>Location</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="other-details-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="otherDetails">➕ Add Other Details</button>
+
+                <h3>13. Membership in Professional Bodies</h3>
+                <div class="data-table-container">
+                    <div class="data-entry-header membership-grid">
+                        <span>SI No.</span>
+                        <span>Academic Year</span>
+                        <span>Details/BoE/Bos</span>
+                        <span>Institute</span>
+                        <span>Date/Period</span>
+                        <span>Place/Location</span>
+                        <span>Upload</span>
+                    </div>
+                    <div id="membership-entries"></div>
+                </div>
+                <button type="button" class="add-button" data-type="membership">➕ Add Membership</button>
+                </section>
+
+            <button type="submit" id="submit-profile-btn">Submit Faculty Profile</button>
         </form>
     </div>
 
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal('confirmation-modal')">&times;</span>
-            <div class="modal-profile-body" style="text-align: center;">
-                <h1 style="color: #4CAF50;">✅ Submission Successful!</h1>
-                <p>Thank you, **<span id="submitted-faculty-name"></span>**.</p>
-                <p>Your profile details have been successfully submitted and are pending review.</p>
-                <p>Employee ID: **<span id="submitted-faculty-id"></span>**</p>
-                <button onclick="closeModal('confirmation-modal')" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; margin-top: 20px; cursor: pointer;">Close</button>
-            </div>
+            <h2 style="color: #28a745;">Submission Successful!</h2>
+            <p>Thank you, **<span id="submitted-faculty-name"></span>**, for updating your profile.</p>
+            <p>Your profile details have been successfully submitted and are pending review.</p>
+            <p>Employee ID: **<span id="submitted-faculty-id"></span>**</p>
+            <button onclick="closeModal('confirmation-modal')"
+                style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; margin-top: 20px; cursor: pointer;">Close & View Directory</button>
         </div>
     </div>
-    
+
     <div id="crop-modal" class="modal">
         <div class="modal-content" style="max-width: 500px; padding: 20px;">
             <span class="close-button" onclick="closeCropModal()">&times;</span>
             <h2 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Crop Image (Circular Profile)</h2>
             <div style="text-align: center;">
-                <canvas id="crop-canvas" width="300" height="300" style="border: 2px solid #007bff; border-radius: 5px;"></canvas>
-                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">The image will be center-cropped to the circular area.</p>
+                <canvas id="crop-canvas" width="300" height="300"></canvas>
+                <p style="font-size: 0.9em; color: #666; margin-top: 5px;">Adjust the circle to crop the image to the profile size.</p>
             </div>
             <div style="text-align: right; margin-top: 20px;">
-                <button type="button" class="add-button" id="save-crop-btn" style="float: none; margin: 0; background-color: #007bff;" >Crop & Save Photo</button>
+                <button type="button" id="save-crop-btn" class="add-button" style="float:none;">Crop & Save Photo</button>
             </div>
         </div>
     </div>
-    <script src="../js/enter.js"></script>
+
+    <script src="../static/js/enter.js"></script>
 </body>
 
 </html>

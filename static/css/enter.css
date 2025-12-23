@@ -1,243 +1,291 @@
 /* Minimal form-specific CSS for better presentation */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            padding: 20px;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
 
-        .form-container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.form-container {
+    max-width: 1200px; /* Increased width to better accommodate multi-column grids */
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .form-container h1 {
-            color: #333;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
+.form-container h1 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
 
-        .form-section {
-            margin-bottom: 30px;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 6px;
-        }
+.form-section {
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 6px;
+}
 
-        .form-section h2 {
-            color: #0056b3;
-            margin-top: 0;
-        }
+.form-section h2 {
+    color: #0056b3;
+    margin-top: 0;
+}
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        /* Photo Upload/Edit Styles */
-        .photo-upload-container {
-            grid-column: 1 / 2;
-            grid-row: 1 / 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-        
-        #photo-preview-container {
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            display: none;
-        }
-        
-        #photo-preview {
-            width: 100px;
-            height: 100px;
-            margin-top: 5px;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid #ccc;
-            border-radius: 50%; /* Circular preview */
-            overflow: hidden;
-            background-color: #f9f9f9;
-        }
-        
-        .photo-upload-container input[type="file"] {
-            padding-top: 5px; 
-            border: none; 
-        }
-        /* END Photo Styles */
+.form-section h3 {
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: 5px;
+}
 
-        .form-section label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
+/* --- General Form Layout --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
 
-        .form-section input[type="text"],
-        .form-section input[type="email"],
-        .form-section select,
-        .form-section textarea,
-        .form-section input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        
-        .form-section input[type="file"] {
-             width: 100%;
-             padding: 10px 0;
-             border: none;
-             box-sizing: border-box;
-        }
+.full-width {
+    grid-column: 1 / -1; 
+}
 
-        .full-width {
-            grid-column: 1 / -1;
-        }
+/* --- Photo Upload/Edit Styles --- */
+.photo-upload-container {
+    grid-column: 1 / -1; 
+    border: 1px dashed #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
 
-        .add-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            float: right;
-            margin-bottom: 15px;
-        }
+#photo-preview-container {
+    margin-bottom: 15px;
+}
 
-        .data-entry-row {
-            display: grid;
-            grid-template-columns: 3fr 3fr 2fr 1fr;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        
-        #research-paper-entries .data-entry-row {
-             grid-template-columns: 8fr 2fr 1fr;
-        }
-        
-        #award-entries .data-entry-row {
-             grid-template-columns: 4fr 4fr 2fr 1fr;
-        }
+#photo-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    border: 2px solid #0056b3;
+}
 
+/* Generic Form Element Styles */
+.form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
 
-        .remove-button {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        
-        #remove-photo-btn {
-            background-color: #f44336; 
-            padding: 5px 10px;
-            width: auto;
-            float: none;
-            margin: 5px 0 0 0;
-            font-size: 0.9em;
-        }
+.form-section input[type="text"],
+.form-section input[type="email"],
+.form-section select,
+.form-section textarea,
+.form-section input[type="number"],
+.form-section input[type="date"],
+.form-section input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
+/* ============================================= */
+/* DYNAMIC TABLE STYLES (NAAC 1-13) */
+/* ============================================= */
 
-        button[type="submit"] {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #007bff;
-            color: white;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        
-        /* NEW: Modal Styles (for confirmation and crop) */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 100; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-            padding-top: 60px;
-        }
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden; 
+}
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; 
-            max-width: 600px;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
+/* Dynamic Row Header Style */
+.data-entry-header {
+    background-color: #e6f0ff; /* Lighter blue for headers */
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.9em;
+    text-align: center;
+}
 
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+/* Dynamic Row Item Style */
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-x: auto; /* Allows horizontal scroll on small screens */
+}
+.data-entry-header span {
+    padding: 5px;
+    word-wrap: break-word;
+}
 
-        .close-button:hover,
-        .close-button:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        /* Style for the canvas inside the crop modal */
-        #crop-canvas {
-            display: block;
-            margin: 10px auto;
-            max-width: 100%;
-            height: auto;
-        }
+.data-entry-row:last-child {
+    border-bottom: none;
+}
 
-/* NEW: Modal Styles (for confirmation and crop) */
+/* SI No. Placeholder Styling */
+.si-no-placeholder {
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+}
+
+/* ------------------------------------------- */
+/* --- Specific Grid Templates (Corrected) --- */
+/* ------------------------------------------- */
+
+/* 1. Previous Work/Position held: SI No. (0.5fr) + 4 fields (3fr, 3fr, 1fr, 1fr) + Remove (40px) = 6 columns */
+.previous-work-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 1fr 1fr 40px; 
+}
+
+/* 2. Course Taught: SI No. (0.5fr) + 1 field (10fr) + Remove (40px) = 3 columns */
+.Course-tauhgt-grid {
+    grid-template-columns: 0.5fr 10fr 40px; 
+}
+
+/* 3. Publications (NAAC 01): SI No. + 7 fields + Remove = 9 columns */
+.publication-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 3fr 2fr 1.5fr 1fr 40px;
+    min-width: 1000px; /* Ensures the grid doesn't squash too much */
+}
+/* 4. Book Chapters/Book Publications (NAAC 02): SI No. + 6 fields + Remove = 8 columns */
+.book-publication-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 2fr 1fr 1fr 40px;
+}
+
+/* 5. Awards (NAAC 03): SI No. + 5 fields + Remove = 7 columns */
+.award-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 1.5fr 1fr 40px;
+}
+
+/* 6. ICT Creation (NAAC 04): SI No. + 4 fields + Remove = 6 columns */
+.creation-ict-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 7. Research Guidance (NAAC 05): SI No. + 4 fields + Remove = 6 columns */
+.Research-guid-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 2fr 2fr 40px;
+}
+
+/* 8. PG Dissertation (NAAC 06): SI No. + 2 fields + Remove = 4 columns */
+.pg-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 40px;
+}
+
+/* 9. Research Project (NAAC 07): SI No. + 6 fields + Remove = 8 columns */
+.project-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1fr 1fr 1fr 40px;
+}
+
+/* 10. Patent Information (NAAC 08): SI No. + 3 fields + Remove = 5 columns */
+.patent-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 40px;
+}
+
+/* 11. Conference paper/proceeding (NAAC 09): Uses .book-publication-grid in HTML */
+
+/* 12. Seminar/workshops/Conferences (NAAC 10): SI No. + 4 fields + Remove = 6 columns */
+.Seminars-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 13. Invited Lectures/paper Assign (NAAC 11): SI No. + 4 fields + Remove = 6 columns */
+.Lectures-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 14. Other details (NAAC 12): SI No. + 4 fields + Remove = 6 columns */
+.other-details-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 15. Membership in Professional Bodies (NAAC 13): SI No. + 5 fields + Remove = 7 columns */
+.membership-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 1.5fr 40px;
+}
+
+/* Remove Button (inside dynamic rows) */
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Add Button (below dynamic tables) */
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* General Submission Button */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+/* ============================================= */
+/* --- MODAL & CROP STYLES --- */
+/* ============================================= */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 100; 
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; 
     height: 100%; 
     overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-    padding-top: 60px;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; 
+    margin: 10% auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; 
     max-width: 600px;
     border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .close-button {
@@ -254,10 +302,1245 @@
     cursor: pointer;
 }
 
-/* Style for the canvas inside the crop modal */
+/* Crop Canvas Styling */
 #crop-canvas {
+    border: 1px solid #0056b3;
     display: block;
-    margin: 10px auto;
-    max-width: 100%;
-    height: auto;
+    margin: 0 auto 15px auto;
+}/* Minimal form-specific CSS for better presentation */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 1200px; /* Increased width to better accommodate multi-column grids */
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.form-section h2 {
+    color: #0056b3;
+    margin-top: 0;
+}
+
+.form-section h3 {
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: 5px;
+}
+
+/* --- General Form Layout --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1; 
+}
+
+/* --- Photo Upload/Edit Styles --- */
+.photo-upload-container {
+    grid-column: 1 / -1; 
+    border: 1px dashed #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#photo-preview-container {
+    margin-bottom: 15px;
+}
+
+#photo-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    border: 2px solid #0056b3;
+}
+
+/* Generic Form Element Styles */
+.form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-section input[type="text"],
+.form-section input[type="email"],
+.form-section select,
+.form-section textarea,
+.form-section input[type="number"],
+.form-section input[type="date"],
+.form-section input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* ============================================= */
+/* DYNAMIC TABLE STYLES (NAAC 1-13) */
+/* ============================================= */
+
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden; 
+}
+
+/* Dynamic Row Header Style */
+.data-entry-header {
+    background-color: #e6f0ff; /* Lighter blue for headers */
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Dynamic Row Item Style */
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-x: auto; /* Allows horizontal scroll on small screens */
+}
+.data-entry-header span {
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+.data-entry-row:last-child {
+    border-bottom: none;
+}
+
+/* SI No. Placeholder Styling */
+.si-no-placeholder {
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+}
+
+/* ------------------------------------------- */
+/* --- Specific Grid Templates (Corrected) --- */
+/* ------------------------------------------- */
+
+/* 1. Previous Work/Position held: SI No. (0.5fr) + 4 fields (3fr, 3fr, 1fr, 1fr) + Remove (40px) = 6 columns */
+.previous-work-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 1fr 1fr 40px; 
+}
+
+/* 2. Course Taught: SI No. (0.5fr) + 1 field (10fr) + Remove (40px) = 3 columns */
+.Course-tauhgt-grid {
+    grid-template-columns: 0.5fr 10fr 40px; 
+}
+
+/* 3. Publications (NAAC 01): SI No. + 7 fields + Remove = 9 columns */
+.publication-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 3fr 2fr 1.5fr 1fr 40px;
+    min-width: 1000px; /* Ensures the grid doesn't squash too much */
+}
+/* 4. Book Chapters/Book Publications (NAAC 02): SI No. + 6 fields + Remove = 8 columns */
+.book-publication-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 2fr 1fr 1fr 40px;
+}
+
+/* 5. Awards (NAAC 03): SI No. + 5 fields + Remove = 7 columns */
+.award-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 1.5fr 1fr 40px;
+}
+
+/* 6. ICT Creation (NAAC 04): SI No. + 4 fields + Remove = 6 columns */
+.creation-ict-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 7. Research Guidance (NAAC 05): SI No. + 4 fields + Remove = 6 columns */
+.Research-guid-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 2fr 2fr 40px;
+}
+
+/* 8. PG Dissertation (NAAC 06): SI No. + 2 fields + Remove = 4 columns */
+.pg-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 40px;
+}
+
+/* 9. Research Project (NAAC 07): SI No. + 6 fields + Remove = 8 columns */
+.project-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1fr 1fr 1fr 40px;
+}
+
+/* 10. Patent Information (NAAC 08): SI No. + 3 fields + Remove = 5 columns */
+.patent-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 40px;
+}
+
+/* 11. Conference paper/proceeding (NAAC 09): Uses .book-publication-grid in HTML */
+
+/* 12. Seminar/workshops/Conferences (NAAC 10): SI No. + 4 fields + Remove = 6 columns */
+.Seminars-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 13. Invited Lectures/paper Assign (NAAC 11): SI No. + 4 fields + Remove = 6 columns */
+.Lectures-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 14. Other details (NAAC 12): SI No. + 4 fields + Remove = 6 columns */
+.other-details-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 15. Membership in Professional Bodies (NAAC 13): SI No. + 5 fields + Remove = 7 columns */
+.membership-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 1.5fr 40px;
+}
+
+/* Remove Button (inside dynamic rows) */
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Add Button (below dynamic tables) */
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* General Submission Button */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+/* ============================================= */
+/* --- MODAL & CROP STYLES --- */
+/* ============================================= */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Crop Canvas Styling */
+#crop-canvas {
+    border: 1px solid #0056b3;
+    display: block;
+    margin: 0 auto 15px auto;
+}/* Minimal form-specific CSS for better presentation */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 1200px; /* Increased width to better accommodate multi-column grids */
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.form-section h2 {
+    color: #0056b3;
+    margin-top: 0;
+}
+
+.form-section h3 {
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: 5px;
+}
+
+/* --- General Form Layout --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1; 
+}
+
+/* --- Photo Upload/Edit Styles --- */
+.photo-upload-container {
+    grid-column: 1 / -1; 
+    border: 1px dashed #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#photo-preview-container {
+    margin-bottom: 15px;
+}
+
+#photo-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    border: 2px solid #0056b3;
+}
+
+/* Generic Form Element Styles */
+.form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-section input[type="text"],
+.form-section input[type="email"],
+.form-section select,
+.form-section textarea,
+.form-section input[type="number"],
+.form-section input[type="date"],
+.form-section input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* ============================================= */
+/* DYNAMIC TABLE STYLES (NAAC 1-13) */
+/* ============================================= */
+
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden; 
+}
+
+/* Dynamic Row Header Style */
+.data-entry-header {
+    background-color: #e6f0ff; /* Lighter blue for headers */
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Dynamic Row Item Style */
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-x: auto; /* Allows horizontal scroll on small screens */
+}
+.data-entry-header span {
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+.data-entry-row:last-child {
+    border-bottom: none;
+}
+
+/* SI No. Placeholder Styling */
+.si-no-placeholder {
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+}
+
+/* ------------------------------------------- */
+/* --- Specific Grid Templates (Corrected) --- */
+/* ------------------------------------------- */
+
+/* 1. Previous Work/Position held: SI No. (0.5fr) + 4 fields (3fr, 3fr, 1fr, 1fr) + Remove (40px) = 6 columns */
+.previous-work-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 1fr 1fr 40px; 
+}
+
+/* 2. Course Taught: SI No. (0.5fr) + 1 field (10fr) + Remove (40px) = 3 columns */
+.Course-tauhgt-grid {
+    grid-template-columns: 0.5fr 10fr 40px; 
+}
+
+/* 3. Publications (NAAC 01): SI No. + 7 fields + Remove = 9 columns */
+.publication-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 3fr 2fr 1.5fr 1fr 40px;
+    min-width: 1000px; /* Ensures the grid doesn't squash too much */
+}
+/* 4. Book Chapters/Book Publications (NAAC 02): SI No. + 6 fields + Remove = 8 columns */
+.book-publication-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 2fr 1fr 1fr 40px;
+}
+
+/* 5. Awards (NAAC 03): SI No. + 5 fields + Remove = 7 columns */
+.award-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 1.5fr 1fr 40px;
+}
+
+/* 6. ICT Creation (NAAC 04): SI No. + 4 fields + Remove = 6 columns */
+.creation-ict-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 7. Research Guidance (NAAC 05): SI No. + 4 fields + Remove = 6 columns */
+.Research-guid-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 2fr 2fr 40px;
+}
+
+/* 8. PG Dissertation (NAAC 06): SI No. + 2 fields + Remove = 4 columns */
+.pg-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 40px;
+}
+
+/* 9. Research Project (NAAC 07): SI No. + 6 fields + Remove = 8 columns */
+.project-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1fr 1fr 1fr 40px;
+}
+
+/* 10. Patent Information (NAAC 08): SI No. + 3 fields + Remove = 5 columns */
+.patent-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 40px;
+}
+
+/* 11. Conference paper/proceeding (NAAC 09): Uses .book-publication-grid in HTML */
+
+/* 12. Seminar/workshops/Conferences (NAAC 10): SI No. + 4 fields + Remove = 6 columns */
+.Seminars-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 13. Invited Lectures/paper Assign (NAAC 11): SI No. + 4 fields + Remove = 6 columns */
+.Lectures-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 14. Other details (NAAC 12): SI No. + 4 fields + Remove = 6 columns */
+.other-details-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 15. Membership in Professional Bodies (NAAC 13): SI No. + 5 fields + Remove = 7 columns */
+.membership-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 1.5fr 40px;
+}
+
+/* Remove Button (inside dynamic rows) */
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Add Button (below dynamic tables) */
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* General Submission Button */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+/* ============================================= */
+/* --- MODAL & CROP STYLES --- */
+/* ============================================= */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Crop Canvas Styling */
+#crop-canvas {
+    border: 1px solid #0056b3;
+    display: block;
+    margin: 0 auto 15px auto;
+}/* Minimal form-specific CSS for better presentation */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 1200px; /* Increased width to better accommodate multi-column grids */
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.form-section h2 {
+    color: #0056b3;
+    margin-top: 0;
+}
+
+.form-section h3 {
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: 5px;
+}
+
+/* --- General Form Layout --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1; 
+}
+
+/* --- Photo Upload/Edit Styles --- */
+.photo-upload-container {
+    grid-column: 1 / -1; 
+    border: 1px dashed #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#photo-preview-container {
+    margin-bottom: 15px;
+}
+
+#photo-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    border: 2px solid #0056b3;
+}
+
+/* Generic Form Element Styles */
+.form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-section input[type="text"],
+.form-section input[type="email"],
+.form-section select,
+.form-section textarea,
+.form-section input[type="number"],
+.form-section input[type="date"],
+.form-section input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* ============================================= */
+/* DYNAMIC TABLE STYLES (NAAC 1-13) */
+/* ============================================= */
+
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden; 
+}
+
+/* Dynamic Row Header Style */
+.data-entry-header {
+    background-color: #e6f0ff; /* Lighter blue for headers */
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Dynamic Row Item Style */
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-x: auto; /* Allows horizontal scroll on small screens */
+}
+.data-entry-header span {
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+.data-entry-row:last-child {
+    border-bottom: none;
+}
+
+/* SI No. Placeholder Styling */
+.si-no-placeholder {
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+}
+
+/* ------------------------------------------- */
+/* --- Specific Grid Templates (Corrected) --- */
+/* ------------------------------------------- */
+
+/* 1. Previous Work/Position held: SI No. (0.5fr) + 4 fields (3fr, 3fr, 1fr, 1fr) + Remove (40px) = 6 columns */
+.previous-work-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 1fr 1fr 40px; 
+}
+
+/* 2. Course Taught: SI No. (0.5fr) + 1 field (10fr) + Remove (40px) = 3 columns */
+.Course-tauhgt-grid {
+    grid-template-columns: 0.5fr 10fr 40px; 
+}
+
+/* 3. Publications (NAAC 01): SI No. + 7 fields + Remove = 9 columns */
+.publication-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 3fr 2fr 1.5fr 1fr 40px;
+    min-width: 1000px; /* Ensures the grid doesn't squash too much */
+}
+/* 4. Book Chapters/Book Publications (NAAC 02): SI No. + 6 fields + Remove = 8 columns */
+.book-publication-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 2fr 1fr 1fr 40px;
+}
+
+/* 5. Awards (NAAC 03): SI No. + 5 fields + Remove = 7 columns */
+.award-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 1.5fr 1fr 40px;
+}
+
+/* 6. ICT Creation (NAAC 04): SI No. + 4 fields + Remove = 6 columns */
+.creation-ict-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 7. Research Guidance (NAAC 05): SI No. + 4 fields + Remove = 6 columns */
+.Research-guid-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 2fr 2fr 40px;
+}
+
+/* 8. PG Dissertation (NAAC 06): SI No. + 2 fields + Remove = 4 columns */
+.pg-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 40px;
+}
+
+/* 9. Research Project (NAAC 07): SI No. + 6 fields + Remove = 8 columns */
+.project-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1fr 1fr 1fr 40px;
+}
+
+/* 10. Patent Information (NAAC 08): SI No. + 3 fields + Remove = 5 columns */
+.patent-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 40px;
+}
+
+/* 11. Conference paper/proceeding (NAAC 09): Uses .book-publication-grid in HTML */
+
+/* 12. Seminar/workshops/Conferences (NAAC 10): SI No. + 4 fields + Remove = 6 columns */
+.Seminars-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 13. Invited Lectures/paper Assign (NAAC 11): SI No. + 4 fields + Remove = 6 columns */
+.Lectures-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 14. Other details (NAAC 12): SI No. + 4 fields + Remove = 6 columns */
+.other-details-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 15. Membership in Professional Bodies (NAAC 13): SI No. + 5 fields + Remove = 7 columns */
+.membership-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 1.5fr 40px;
+}
+
+/* Remove Button (inside dynamic rows) */
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Add Button (below dynamic tables) */
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* General Submission Button */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+/* ============================================= */
+/* --- MODAL & CROP STYLES --- */
+/* ============================================= */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Crop Canvas Styling */
+#crop-canvas {
+    border: 1px solid #0056b3;
+    display: block;
+    margin: 0 auto 15px auto;
+}/* Minimal form-specific CSS for better presentation */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 1200px; /* Increased width to better accommodate multi-column grids */
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.form-section h2 {
+    color: #0056b3;
+    margin-top: 0;
+}
+
+.form-section h3 {
+    color: #333;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #e0e0e0;
+    padding-bottom: 5px;
+}
+
+/* --- General Form Layout --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1; 
+}
+
+/* --- Photo Upload/Edit Styles --- */
+.photo-upload-container {
+    grid-column: 1 / -1; 
+    border: 1px dashed #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#photo-preview-container {
+    margin-bottom: 15px;
+}
+
+#photo-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    border: 2px solid #0056b3;
+}
+
+/* Generic Form Element Styles */
+.form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-section input[type="text"],
+.form-section input[type="email"],
+.form-section select,
+.form-section textarea,
+.form-section input[type="number"],
+.form-section input[type="date"],
+.form-section input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* ============================================= */
+/* DYNAMIC TABLE STYLES (NAAC 1-13) */
+/* ============================================= */
+
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden; 
+}
+
+/* Dynamic Row Header Style */
+.data-entry-header {
+    background-color: #e6f0ff; /* Lighter blue for headers */
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Dynamic Row Item Style */
+.data-table-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-x: auto; /* Allows horizontal scroll on small screens */
+}
+.data-entry-header span {
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+.data-entry-row:last-child {
+    border-bottom: none;
+}
+
+/* SI No. Placeholder Styling */
+.si-no-placeholder {
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+}
+
+/* ------------------------------------------- */
+/* --- Specific Grid Templates (Corrected) --- */
+/* ------------------------------------------- */
+
+/* 1. Previous Work/Position held: SI No. (0.5fr) + 4 fields (3fr, 3fr, 1fr, 1fr) + Remove (40px) = 6 columns */
+.previous-work-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 1fr 1fr 40px; 
+}
+
+/* 2. Course Taught: SI No. (0.5fr) + 1 field (10fr) + Remove (40px) = 3 columns */
+.Course-tauhgt-grid {
+    grid-template-columns: 0.5fr 10fr 40px; 
+}
+
+/* 3. Publications (NAAC 01): SI No. + 7 fields + Remove = 9 columns */
+.publication-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 3fr 2fr 1.5fr 1fr 40px;
+    min-width: 1000px; /* Ensures the grid doesn't squash too much */
+}
+/* 4. Book Chapters/Book Publications (NAAC 02): SI No. + 6 fields + Remove = 8 columns */
+.book-publication-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 2fr 1fr 1fr 40px;
+}
+
+/* 5. Awards (NAAC 03): SI No. + 5 fields + Remove = 7 columns */
+.award-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1fr 1.5fr 1fr 40px;
+}
+
+/* 6. ICT Creation (NAAC 04): SI No. + 4 fields + Remove = 6 columns */
+.creation-ict-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 7. Research Guidance (NAAC 05): SI No. + 4 fields + Remove = 6 columns */
+.Research-guid-grid {
+    grid-template-columns: 0.5fr 1fr 2fr 2fr 2fr 40px;
+}
+
+/* 8. PG Dissertation (NAAC 06): SI No. + 2 fields + Remove = 4 columns */
+.pg-grid {
+    grid-template-columns: 0.5fr 3fr 3fr 40px;
+}
+
+/* 9. Research Project (NAAC 07): SI No. + 6 fields + Remove = 8 columns */
+.project-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1fr 1fr 1fr 40px;
+}
+
+/* 10. Patent Information (NAAC 08): SI No. + 3 fields + Remove = 5 columns */
+.patent-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 40px;
+}
+
+/* 11. Conference paper/proceeding (NAAC 09): Uses .book-publication-grid in HTML */
+
+/* 12. Seminar/workshops/Conferences (NAAC 10): SI No. + 4 fields + Remove = 6 columns */
+.Seminars-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 2fr 1.5fr 40px;
+}
+
+/* 13. Invited Lectures/paper Assign (NAAC 11): SI No. + 4 fields + Remove = 6 columns */
+.Lectures-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 14. Other details (NAAC 12): SI No. + 4 fields + Remove = 6 columns */
+.other-details-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 40px;
+}
+
+/* 15. Membership in Professional Bodies (NAAC 13): SI No. + 5 fields + Remove = 7 columns */
+.membership-grid {
+    grid-template-columns: 0.5fr 1fr 3fr 1.5fr 1.5fr 1.5fr 40px;
+}
+
+/* Remove Button (inside dynamic rows) */
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px; 
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Add Button (below dynamic tables) */
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* General Submission Button */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+/* ============================================= */
+/* --- MODAL & CROP STYLES --- */
+/* ============================================= */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Crop Canvas Styling */
+#crop-canvas {
+    border: 1px solid #0056b3;
+    display: block;
+    margin: 0 auto 15px auto;
 }

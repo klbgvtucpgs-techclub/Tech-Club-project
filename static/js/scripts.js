@@ -62,6 +62,7 @@ function initializeAccordions() {
                 if (content.style.maxHeight) {
                     content.style.maxHeight = null;
                 } else {
+                    // This sets the height dynamically based on content
                     content.style.maxHeight = content.scrollHeight + "px";
                 }
             });
@@ -86,134 +87,155 @@ function removeFaculty(facultyId) {
 
     localStorage.setItem('dynamicFaculty', JSON.stringify(facultyList));
     
-    // Close modal and refresh the page to show the updated list
-    location.reload(); 
-}
-
-function editFaculty(facultyId) {
-    // Redirect to the enter.html page, passing the faculty ID as a URL parameter
-    window.location.href = `enter.html?id=${facultyId}`;
+    // Re-load the directory to update the view
+    loadDynamicFaculty();
 }
 
 
-// ===================================
-// DYNAMIC DATA LOADING LOGIC
-// ===================================
+/**
+ * Helper function to generate table for dynamic data in accordions.
+ * This function has been expanded to better display the structured NAAC data.
+ */
+function generateAccordionTableHTML(data, type) {
+    if (!data || data.length === 0) return `<p>No ${type} reported.</p>`;
+    
+    // Helper to format table rows based on data structure
+    const mapDataToRows = (data, keys) => {
+        return data.map(item => `
+            <tr>
+                ${keys.map(key => `<td>${item[key] || 'N/A'}</td>`).join('')}
+            </tr>
+        `).join('');
+    };
 
-function generateDynamicFacultyHTML(faculty) {
-    // Helper function to build a list/table for dynamic sections
-    const buildDynamicList = (data, type) => {
-        if (!data || data.length === 0) return `<p>No ${type} reported.</p>`;
-
-        if (type === 'Previous Work') {
+    switch (type) {
+        case 'Previous Work':
             return `
                 <table>
                     <thead>
                         <tr>
                             <th>Institution</th>
                             <th>Position held</th>
-                            <th>Period</th>
+                            <th>From (YYYY)</th>
+                            <th>To (YYYY)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        ${data.map(item => `
-                            <tr>
-                                <td>${item.institution || 'N/A'}</td>
-                                <td>${item.position || 'N/A'}</td>
-                                <td>${item.period || 'N/A'}</td>
-                            </tr>
-                        `).join('')}
+                        ${mapDataToRows(data, ['prev-organization', 'prev-designation', 'prev-from-year', 'prev-to-year'])}
                     </tbody>
                 </table>
             `;
-        } else if (type === 'Research Papers') {
-            return data.map((item, index) => 
-                `<p>${index + 1}. ${item.citation || 'N/A'} ${item.issn ? `[ISSN: ${item.issn}]` : ''}</p>`
-            ).join('');
-        } else if (type === 'Projects') {
-             return data.map(item => 
-                `<p>Project Title: <strong>${item['project-title'] || 'N/A'}</strong>. Agency: ${item.agency || 'N/A'}. Period: ${item['project-period'] || 'N/A'}. Amount: ${item.amount || 'N/A'}.</p>`
-            ).join('');
-        } else if (type === 'Awards') {
-             return data.map((item, index) => 
-                `<p>${index + 1}. Award Title: <strong>${item['award-title'] || 'N/A'}</strong>. Awarding Agency: ${item.agency || 'N/A'}. Date: ${item.date || 'N/A'}.</p>`
-            ).join('');
-        }
-        return '';
-    };
+        case 'Course Taught':
+             return `
+                <ul>
+                    ${data.map(item => `<li>${item['course-taught'] || 'N/A'}</li>`).join('')}
+                </ul>
+            `;
+        case 'Publications':
+            return `<p>Detailed publications table (e.g., Title, Journal, ISSN) would be here.</p>`; // Placeholder
+        case 'Awards':
+             return `<p>Detailed awards table (e.g., Title, Agency, Date) would be here.</p>`; // Placeholder
+        default:
+            return `<p>Detailed ${type} data summary loaded.</p>`;
+    }
+}
 
-    // Use placeholder if photo is missing, or the Base64 data if available
-    const photoSrc = faculty.photo || `https://via.placeholder.com/150?text=${faculty.name.split(' ').pop() || 'Faculty'}`;
-    const modalId = `modal-${faculty.id}`;
 
-    // Create the card for the directory
+/**
+ * Generates the HTML for the faculty card (icon preview) and the detailed modal pop-up.
+ * @param {Object} faculty - The faculty data object from localStorage.
+ * @returns {Object} An object containing the card HTML and modal HTML strings.
+ */
+function generateDynamicFacultyHTML(faculty) {
+    // Generate a unique ID for the modal
+    const modalId = `modal-dynamic-${faculty.id}`;
+    
+    // Default image if none is provided (should match the placeholder in enter.js)
+    const imageSource = faculty.croppedPhotoBase64 || 'path/to/default/icon.png'; 
+    const fullName = `${faculty.namePrefix} ${faculty.name}`;
+
+    // --- Directory Card HTML (Icon Preview) ---
     const cardHTML = `
-        <div class="faculty-member-card"> 
-            <img src="${photoSrc}" alt="${faculty.name}" class="professor-image"
-                onclick="openModal('${modalId}')">
-            <h3>${faculty.name}</h3>
-            <p>${faculty.designation}, ${faculty.department}</p>
+        <div class="faculty-member-card">
+            <img src="${imageSource}" alt="${fullName}" class="professor-image" onclick="openModal('${modalId}')">
+            <h3>${fullName}</h3>
+            <p style="color: #666; font-size: 0.9em;">${faculty.designation}</p>
+            <button class="remove-button-directory" onclick="removeFaculty('${faculty.id}')">Remove</button>
         </div>
     `;
 
-    // Create the modal for the profile view
+    // Helper to generate the main requested details for the modal
+    function generateMainDetailsHTML(faculty) {
+        return `
+            <div class="details-card">
+                <h3>Profile Overview</h3>
+                <div class="contact-grid">
+                    <div>
+                        <strong>Designation:</strong> 
+                        <span>${faculty.designation || 'N/A'}</span>
+                    </div>
+                    <div>
+                        <strong>Department:</strong> 
+                        <span>${faculty.department || 'N/A'}</span>
+                    </div>
+                    <div>
+                        <strong>Qualification (Main):</strong> 
+                        <span>${faculty.designation || 'N/A'}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-card">
+                <h3>Contact Details</h3>
+                <div class="contact-grid">
+                    <div>
+                        <strong>E-mail:</strong> 
+                        <a href="mailto:${faculty.email}">${faculty.email || 'N/A'}</a>
+                    </div>
+                    <div>
+                        <strong>Mobile Number:</strong> 
+                        <a href="tel:${faculty.phone}">${faculty.phone || 'N/A'}</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+
+    // --- Modal Pop-up HTML (Full Details) ---
     const modalHTML = `
-        <div id="${modalId}" class="modal">
+        <div id="${modalId}" class="modal" role="dialog" aria-modal="true" aria-labelledby="profile-title-${faculty.id}">
             <div class="modal-content">
                 <span class="close-button" onclick="closeModal('${modalId}')">&times;</span>
-
-                <div class="modal-actions">
-                    <button class="edit-button" onclick="editFaculty('${faculty.id}')"> Edit</button>
-                    <button class="remove-button-directory" onclick="removeFaculty('${faculty.id}')"> Remove</button>
+                
+                <div class="profile-header">
+                    <img src="${imageSource}" alt="${fullName}" class="profile-photo">
+                    <h1 id="profile-title-${faculty.id}">${fullName}</h1>
+                    <p>${faculty.designation}, ${faculty.department}</p>
                 </div>
-                <div class="modal-profile-body">
-                    <header class="profile-header">
-                        <img src="${photoSrc}" alt="Faculty Photo" class="profile-photo">
-                        <h1>${faculty.name}</h1>
-                        <p>${faculty.designation} | ${faculty.department}</p>
-                        <p>Employee ID: ${faculty.employeeId || 'N/A'}</p>
-                    </header>
 
-                    <main class="container">
-                        <section class="details-card">
-                            <h2> Contact & Background</h2>
-                            <div class="contact-grid">
-                                <p><strong>Qualification:</strong> ${faculty.qualification || 'N/A'}</p>
-                                <p><strong>Email:</strong> ${faculty.email || 'N/A'}</p>
-                                <p class="full-width"><strong>Specialization:</strong> ${faculty.specialization || 'N/A'}</p>
-                            </div>
-                        </section>
+                <div class="modal-profile-body container">
+                    ${generateMainDetailsHTML(faculty)}
 
-                        <div class="accordion">
+                    <button class="accordion-button">Courses Taught</button>
+                    <div class="accordion-content">
+                        ${generateAccordionTableHTML(faculty.courseTaught, 'Course Taught')}
+                    </div>
 
-                            <button class="accordion-button"> Previous Work/Position Held</button>
-                            <div class="accordion-content">
-                                ${buildDynamicList(faculty.previousWork, 'Previous Work')}
-                            </div>
+                    <button class="accordion-button">Work Experience (Previous)</button>
+                    <div class="accordion-content">
+                        ${generateAccordionTableHTML(faculty.prevWork, 'Previous Work')}
+                    </div>
 
-                            <button class="accordion-button"> Research Papers in Peer-reviewed Journals</button>
-                            <div class="accordion-content">
-                                ${buildDynamicList(faculty.researchPapers, 'Research Papers')}
-                            </div>
+                    <button class="accordion-button">Publications & Research</button>
+                    <div class="accordion-content">
+                        ${generateAccordionTableHTML(faculty.publications, 'Publications')}
+                    </div>
 
-                            <button class="accordion-button"> Research Guidance & Projects</button>
-                            <div class="accordion-content">
-                                <h3>Research Guidance (PG Dissertation/Thesis)</h3>
-                                <ul>
-                                    <li>Total Thesis Submitted: ${faculty.thesisSubmitted || 0}</li>
-                                    <li>Degree Awarded: ${faculty.degreeAwarded || 0}</li>
-                                </ul>
-                                <h3>Ongoing/Completed Research Projects</h3>
-                                ${buildDynamicList(faculty.projects, 'Projects')}
-                            </div>
-
-                            <button class="accordion-button"> Awards & Professional Activities</button>
-                            <div class="accordion-content">
-                                ${buildDynamicList(faculty.awards, 'Awards')}
-                            </div>
-
-                        </div>
-                    </main>
+                    <button class="accordion-button">Awards & Achievements</button>
+                    <div class="accordion-content">
+                        ${generateAccordionTableHTML(faculty.awards, 'Awards')}
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,6 +255,11 @@ function loadDynamicFaculty() {
     const body = document.body;
 
     facultyList.forEach(faculty => {
+        // Ensure faculty has an ID before proceeding (safety check for old data)
+        if (!faculty.id) {
+            faculty.id = `faculty-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        }
+        
         const { cardHTML, modalHTML } = generateDynamicFacultyHTML(faculty);
         
         // Insert the Card into the directory container
