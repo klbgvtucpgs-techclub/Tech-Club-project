@@ -9,17 +9,53 @@
 </head>
 
 <body>
-
-    <h1 class="page-title">College Faculty Directory</h1>
+    <!-- Page Header with Animation -->
+    <header class="page-header" data-anim="fadeInDown">
+        <div class="header-content">
+            <h1 class="page-title">College Faculty Directory</h1>
+            <p class="page-subtitle">Discover Our Distinguished Faculty Members</p>
+        </div>
+    </header>
     
-    <div class="add-faculty-link-container">
-        <a href="enter.html" class="add-faculty-button">➕ Add New Faculty Details</a>
+    <!-- Action Bar -->
+    <div class="action-bar" data-anim="fadeInUp" data-delay="0.2">
+        <div class="action-bar-content">
+            <div class="search-container">
+                <input type="text" id="faculty-search" placeholder="Search faculty by name or department..." class="search-input">
+                <span class="search-icon">🔍</span>
+            </div>
+            <a href="login.html" class="add-faculty-button">
+                <span class="button-icon">➕</span>
+                <span class="button-text">Add New Faculty</span>
+            </a>
+        </div>
     </div>
     
-    <div class="directory-container">
+    <!-- Faculty Directory Container -->
+    <div class="directory-wrapper">
+        <div class="directory-container" id="dynamic-faculty-list">
+            <!-- Dynamic faculty cards will be inserted here -->
+        </div>
         
-        <div id="dynamic-faculty-list">
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-icon">📚</div>
+            <h2>No Faculty Members Yet</h2>
+            <p>Start building your directory by adding faculty profiles</p>
+            <a href="login.html" class="empty-state-button">Add First Faculty Member</a>
+        </div>
     </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading faculty directory...</p>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        ↑
+    </button>
     
     <script src="../static/js/scripts.js"></script>
 </body>

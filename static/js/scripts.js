@@ -2,41 +2,32 @@
 // MODAL (POP-UP) FUNCTIONS
 // ===================================
 
-// Function to open the modal (Triggered by the image's onclick)
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'block';
         
-        // Use a timeout to trigger the CSS transition (fade-in/zoom-in)
         setTimeout(() => {
             modal.classList.add('active');
         }, 10); 
 
-        // Prevent main page scrolling when modal is open
         document.body.style.overflow = 'hidden'; 
     }
-    // Re-initialize accordions inside the newly opened modal
     initializeAccordions();
 }
 
-// Function to close the modal (Triggered by the 'X' button or window click)
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        // 1. Start the reverse animation (fade-out/zoom-out)
         modal.classList.remove('active');
 
-        // 2. Hide the element only after the animation finishes (300ms matches CSS transition)
         setTimeout(() => {
             modal.style.display = 'none';
-            // Re-enable main page scrolling
             document.body.style.overflow = 'auto'; 
-        }, 300); 
+        }, 400); 
     }
 }
 
-// Close the modal if the user clicks anywhere on the dark background
 window.onclick = function(event) {
     if (event.target.classList.contains('modal')) {
         const modalId = event.target.id;
@@ -45,15 +36,13 @@ window.onclick = function(event) {
 }
 
 // ===================================
-// ACCORDION FUNCTIONS (Inside the Modal)
+// ACCORDION FUNCTIONS
 // ===================================
 
 function initializeAccordions() {
-    // We select all accordion buttons that exist in the DOM
     const buttons = document.querySelectorAll('.accordion-button');
 
     buttons.forEach(button => {
-        // Prevent adding multiple listeners if called multiple times (e.g., inside openModal)
         if (!button.getAttribute('data-listener-added')) {
             button.addEventListener('click', function() {
                 this.classList.toggle('active');
@@ -61,9 +50,10 @@ function initializeAccordions() {
                 
                 if (content.style.maxHeight) {
                     content.style.maxHeight = null;
+                    content.classList.remove('active');
                 } else {
-                    // This sets the height dynamically based on content
                     content.style.maxHeight = content.scrollHeight + "px";
+                    content.classList.add('active');
                 }
             });
             button.setAttribute('data-listener-added', 'true');
@@ -72,7 +62,7 @@ function initializeAccordions() {
 }
 
 // ===================================
-// NEW DYNAMIC DATA ACTIONS
+// DYNAMIC DATA ACTIONS
 // ===================================
 
 function removeFaculty(facultyId) {
@@ -81,28 +71,28 @@ function removeFaculty(facultyId) {
     }
 
     let facultyList = JSON.parse(localStorage.getItem('dynamicFaculty')) || [];
-    
-    // Filter out the faculty member with the matching ID
     facultyList = facultyList.filter(faculty => faculty.id !== facultyId);
-
     localStorage.setItem('dynamicFaculty', JSON.stringify(facultyList));
     
-    // Re-load the directory to update the view
-    loadDynamicFaculty();
+    // Smooth removal animation
+    const card = document.querySelector(`[onclick*="${facultyId}"]`)?.closest('.faculty-member-card');
+    if (card) {
+        card.style.transform = 'scale(0.8) translateY(20px)';
+        card.style.opacity = '0';
+        setTimeout(() => {
+            loadDynamicFaculty();
+        }, 300);
+    } else {
+        loadDynamicFaculty();
+    }
 }
 
-
-/**
- * Helper function to generate table for dynamic data in accordions.
- * This function has been expanded to better display the structured NAAC data.
- */
 function generateAccordionTableHTML(data, type) {
-    if (!data || data.length === 0) return `<p>No ${type} reported.</p>`;
+    if (!data || data.length === 0) return `<p style="color: #666; padding: 10px;">No ${type} reported.</p>`;
     
-    // Helper to format table rows based on data structure
     const mapDataToRows = (data, keys) => {
         return data.map(item => `
-            <tr>
+            <tr style="animation: fadeIn 0.3s ease-out;">
                 ${keys.map(key => `<td>${item[key] || 'N/A'}</td>`).join('')}
             </tr>
         `).join('');
@@ -127,48 +117,38 @@ function generateAccordionTableHTML(data, type) {
             `;
         case 'Course Taught':
              return `
-                <ul>
-                    ${data.map(item => `<li>${item['course-taught'] || 'N/A'}</li>`).join('')}
+                <ul style="animation: fadeIn 0.3s ease-out;">
+                    ${data.map(item => `<li>📚 ${item['course-taught'] || 'N/A'}</li>`).join('')}
                 </ul>
             `;
         case 'Publications':
-            return `<p>Detailed publications table (e.g., Title, Journal, ISSN) would be here.</p>`; // Placeholder
+            return `<p style="color: #666; padding: 10px;">Detailed publications table (e.g., Title, Journal, ISSN) would be here.</p>`;
         case 'Awards':
-             return `<p>Detailed awards table (e.g., Title, Agency, Date) would be here.</p>`; // Placeholder
+             return `<p style="color: #666; padding: 10px;">Detailed awards table (e.g., Title, Agency, Date) would be here.</p>`;
         default:
-            return `<p>Detailed ${type} data summary loaded.</p>`;
+            return `<p style="color: #666; padding: 10px;">Detailed ${type} data summary loaded.</p>`;
     }
 }
 
-
-/**
- * Generates the HTML for the faculty card (icon preview) and the detailed modal pop-up.
- * @param {Object} faculty - The faculty data object from localStorage.
- * @returns {Object} An object containing the card HTML and modal HTML strings.
- */
 function generateDynamicFacultyHTML(faculty) {
-    // Generate a unique ID for the modal
     const modalId = `modal-dynamic-${faculty.id}`;
-    
-    // Default image if none is provided (should match the placeholder in enter.js)
-    const imageSource = faculty.croppedPhotoBase64 || 'path/to/default/icon.png'; 
+    const imageSource = faculty.croppedPhotoBase64 || faculty.photo || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" font-size="60" text-anchor="middle" dy=".3em" fill="%23999"%3E%3F%3C/text%3E%3C/svg%3E';
     const fullName = `${faculty.namePrefix} ${faculty.name}`;
 
-    // --- Directory Card HTML (Icon Preview) ---
     const cardHTML = `
         <div class="faculty-member-card">
             <img src="${imageSource}" alt="${fullName}" class="professor-image" onclick="openModal('${modalId}')">
             <h3>${fullName}</h3>
-            <p style="color: #666; font-size: 0.9em;">${faculty.designation}</p>
+            <p>${faculty.designation}</p>
+            <p style="color: #999; font-size: 0.85em;">${faculty.department}</p>
             <button class="remove-button-directory" onclick="removeFaculty('${faculty.id}')">Remove</button>
         </div>
     `;
 
-    // Helper to generate the main requested details for the modal
     function generateMainDetailsHTML(faculty) {
         return `
             <div class="details-card">
-                <h3>Profile Overview</h3>
+                <h3>📋 Profile Overview</h3>
                 <div class="contact-grid">
                     <div>
                         <strong>Designation:</strong> 
@@ -179,21 +159,25 @@ function generateDynamicFacultyHTML(faculty) {
                         <span>${faculty.department || 'N/A'}</span>
                     </div>
                     <div>
-                        <strong>Qualification (Main):</strong> 
-                        <span>${faculty.designation || 'N/A'}</span>
+                        <strong>Employee ID:</strong> 
+                        <span>${faculty.employeeId || 'N/A'}</span>
+                    </div>
+                    <div>
+                        <strong>Faculty ID:</strong> 
+                        <span>${faculty.facultyId || 'N/A'}</span>
                     </div>
                 </div>
             </div>
 
             <div class="details-card">
-                <h3>Contact Details</h3>
+                <h3>📞 Contact Details</h3>
                 <div class="contact-grid">
                     <div>
-                        <strong>E-mail:</strong> 
+                        <strong>📧 E-mail:</strong> 
                         <a href="mailto:${faculty.email}">${faculty.email || 'N/A'}</a>
                     </div>
                     <div>
-                        <strong>Mobile Number:</strong> 
+                        <strong>📱 Mobile Number:</strong> 
                         <a href="tel:${faculty.phone}">${faculty.phone || 'N/A'}</a>
                     </div>
                 </div>
@@ -201,8 +185,6 @@ function generateDynamicFacultyHTML(faculty) {
         `;
     }
 
-
-    // --- Modal Pop-up HTML (Full Details) ---
     const modalHTML = `
         <div id="${modalId}" class="modal" role="dialog" aria-modal="true" aria-labelledby="profile-title-${faculty.id}">
             <div class="modal-content">
@@ -217,22 +199,22 @@ function generateDynamicFacultyHTML(faculty) {
                 <div class="modal-profile-body container">
                     ${generateMainDetailsHTML(faculty)}
 
-                    <button class="accordion-button">Courses Taught</button>
+                    <button class="accordion-button">📚 Courses Taught</button>
                     <div class="accordion-content">
-                        ${generateAccordionTableHTML(faculty.courseTaught, 'Course Taught')}
+                        ${generateAccordionTableHTML(faculty.coursesTaught || faculty.courseTaught, 'Course Taught')}
                     </div>
 
-                    <button class="accordion-button">Work Experience (Previous)</button>
+                    <button class="accordion-button">💼 Work Experience (Previous)</button>
                     <div class="accordion-content">
-                        ${generateAccordionTableHTML(faculty.prevWork, 'Previous Work')}
+                        ${generateAccordionTableHTML(faculty.previousWork || faculty.prevWork, 'Previous Work')}
                     </div>
 
-                    <button class="accordion-button">Publications & Research</button>
+                    <button class="accordion-button">📖 Publications & Research</button>
                     <div class="accordion-content">
                         ${generateAccordionTableHTML(faculty.publications, 'Publications')}
                     </div>
 
-                    <button class="accordion-button">Awards & Achievements</button>
+                    <button class="accordion-button">🏆 Awards & Achievements</button>
                     <div class="accordion-content">
                         ${generateAccordionTableHTML(faculty.awards, 'Awards')}
                     </div>
@@ -245,40 +227,187 @@ function generateDynamicFacultyHTML(faculty) {
 }
 
 function loadDynamicFaculty() {
-    // Clear existing dynamic content before loading to prevent duplicates
-    document.getElementById('dynamic-faculty-list').innerHTML = '';
-    // Remove old dynamic modals (those with ID starting with modal-dynamic-)
+    const directoryContainer = document.getElementById('dynamic-faculty-list');
+    const emptyState = document.getElementById('empty-state');
+    
+    // Clear existing content
+    directoryContainer.innerHTML = '';
     document.querySelectorAll('.modal[id^="modal-dynamic-"]').forEach(modal => modal.remove());
     
     const facultyList = JSON.parse(localStorage.getItem('dynamicFaculty')) || [];
-    const directoryContainer = document.getElementById('dynamic-faculty-list');
+    
+    // Show empty state if no faculty
+    if (facultyList.length === 0) {
+        if (emptyState) {
+            emptyState.style.display = 'block';
+        }
+        return;
+    }
+    
+    if (emptyState) {
+        emptyState.style.display = 'none';
+    }
+    
     const body = document.body;
 
-    facultyList.forEach(faculty => {
-        // Ensure faculty has an ID before proceeding (safety check for old data)
+    facultyList.forEach((faculty, index) => {
         if (!faculty.id) {
             faculty.id = `faculty-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
         }
         
         const { cardHTML, modalHTML } = generateDynamicFacultyHTML(faculty);
         
-        // Insert the Card into the directory container
-        directoryContainer.insertAdjacentHTML('beforeend', cardHTML);
+        // Insert with staggered animation
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = cardHTML;
+        const card = tempDiv.firstElementChild;
+        card.style.animationDelay = `${index * 0.1}s`;
+        directoryContainer.appendChild(card);
         
-        // Insert the Modal at the end of the body
         body.insertAdjacentHTML('beforeend', modalHTML);
     });
 
-    // Initialize accordions for all modals (static and dynamic)
     initializeAccordions();
 }
 
+// ===================================
+// SEARCH FUNCTIONALITY
+// ===================================
+
+function initializeSearch() {
+    const searchInput = document.getElementById('faculty-search');
+    if (!searchInput) return;
+    
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.faculty-member-card');
+        
+        cards.forEach(card => {
+            const name = card.querySelector('h3').textContent.toLowerCase();
+            const designation = card.querySelector('p').textContent.toLowerCase();
+            
+            if (name.includes(searchTerm) || designation.includes(searchTerm)) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.3s ease-out';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+}
+
+// ===================================
+// SCROLL TO TOP FUNCTIONALITY
+// ===================================
+
+function initializeScrollToTop() {
+    const scrollBtn = document.getElementById('scrollToTop');
+    if (!scrollBtn) return;
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    });
+    
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// ===================================
+// LOADING ANIMATION
+// ===================================
+
+function hideLoadingSpinner() {
+    const spinner = document.getElementById('loading-spinner');
+    if (spinner) {
+        setTimeout(() => {
+            spinner.classList.add('hidden');
+            setTimeout(() => {
+                spinner.style.display = 'none';
+            }, 300);
+        }, 800);
+    }
+}
+
+// ===================================
+// INTERSECTION OBSERVER FOR ANIMATIONS
+// ===================================
+
+function initializeIntersectionObserver() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('[data-anim]').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// ===================================
+// INITIALIZATION
+// ===================================
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Load data only on the directory page (index.html)
+    // Load faculty data
     if (document.querySelector('.directory-container')) {
         loadDynamicFaculty();
     }
     
-    // Fallback for accordions on static content (already handled by loadDynamicFaculty)
+    // Initialize all features
     initializeAccordions();
+    initializeSearch();
+    initializeScrollToTop();
+    initializeIntersectionObserver();
+    hideLoadingSpinner();
+    
+    // Add smooth animations to elements
+    const actionBar = document.querySelector('.action-bar');
+    if (actionBar) {
+        setTimeout(() => {
+            actionBar.style.animation = 'fadeInUp 0.8s ease-out';
+        }, 200);
+    }
+});
+
+// ===================================
+// KEYBOARD ACCESSIBILITY
+// ===================================
+
+document.addEventListener('keydown', function(e) {
+    // Close modal on Escape key
+    if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+            closeModal(activeModal.id);
+        }
+    }
+});
+
+// ===================================
+// SMOOTH PAGE TRANSITIONS
+// ===================================
+
+window.addEventListener('load', () => {
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+    }, 100);
 });

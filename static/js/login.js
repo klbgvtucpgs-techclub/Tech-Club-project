@@ -47,3 +47,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+form.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    message.textContent = '';
+    message.className = 'message';
+
+    loginBtn.textContent = 'Logging In...';
+    loginBtn.classList.add('loading');
+    loginBtn.disabled = true;
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            message.textContent = 'Login successful! Redirecting...';
+            message.classList.add('success');
+
+            document.querySelector('.container')
+                .classList.add('success-redirect');
+
+            setTimeout(() => {
+                window.location.href = 'admin.html';
+            }, 900);
+
+        } else {
+            const error = await response.json();
+            message.textContent = `Login failed: ${error.message || 'Invalid credentials'}`;
+            message.classList.add('error', 'shake');
+        }
+
+    } catch (err) {
+        message.textContent = 'Network Error';
+        message.classList.add('error', 'shake');
+    } finally {
+        loginBtn.textContent = 'Sign-in';
+        loginBtn.classList.remove('loading');
+        loginBtn.disabled = false;
+    }
+});
+

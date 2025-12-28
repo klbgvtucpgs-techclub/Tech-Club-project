@@ -36,11 +36,19 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 400px;
-    /* Initial state for fadeInSlide animation */
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInSlide 0.8s ease-out forwards;
 }
+.container {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow:
+        0 0 20px rgba(0,123,255,0.4),
+        0 0 40px rgba(255,94,0,0.2);
+}
+
 
 @keyframes fadeInSlide {
     to {
@@ -176,3 +184,81 @@ button:disabled {
     color: #0056b3;
     text-decoration: underline;
 }
+/* Floating labels */
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    background: #f9f9f9;
+    padding: 0 6px;
+    font-size: 14px;
+    color: #777;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -8px;
+    font-size: 12px;
+    color: #007bff;
+}
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.4s ease;
+}
+button.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+button.loading::after {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+    animation: loadingMove 1s infinite;
+}
+
+@keyframes loadingMove {
+    from { left: -120%; }
+    to { left: 120%; }
+}
+.success-redirect {
+    animation: zoomOut 0.6s ease forwards;
+}
+
+@keyframes zoomOut {
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+:root {
+    --bg: rgba(221,220,220,0.95);
+    --text: #333;
+}
+
+body.dark {
+    --bg: rgba(20,20,20,0.9);
+    --text: #f1f1f1;
+}
+
