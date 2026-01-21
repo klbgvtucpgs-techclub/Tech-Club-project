@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Faculty Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../static/css/admin_dashboard.css">
+</head>
+
+<body class="bg-gray-900 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold">🎓 Faculty Management System</h1>
+                <p class="text-purple-200 text-sm">Admin Dashboard</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="admin-name" class="text-purple-200"></span>
+                <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="bg-gray-800 border-b border-gray-700">
+        <div class="container mx-auto px-6">
+            <div class="flex space-x-1">
+                <button class="tab-btn active" data-tab="add-faculty">
+                    ➕ Add Faculty
+                </button>
+                <button class="tab-btn" data-tab="view-data">
+                    📊 View Data
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Add Faculty Tab -->
+        <section id="add-faculty-tab" class="tab-content active">
+            <div class="max-w-2xl mx-auto bg-gray-800 rounded-xl shadow-2xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                    <span class="text-3xl">👤</span> Add New Faculty
+                </h2>
+                <p class="text-gray-400 mb-6">Enter faculty details to generate and send login credentials.</p>
+
+                <form id="add-faculty-form" class="space-y-5">
+                    <div class="form-group">
+                        <label for="name" class="block text-gray-300 mb-2 font-medium">Full Name *</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="Dr. John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employee_id" class="block text-gray-300 mb-2 font-medium">Employee ID *</label>
+                        <input type="text" id="employee_id" name="employee_id" required
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="EMP001">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="block text-gray-300 mb-2 font-medium">Email Address *</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="johndoe@college.edu">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="block text-gray-300 mb-2 font-medium">Phone Number</label>
+                        <input type="tel" id="phone" name="phone"
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                            placeholder="+91 9876543210">
+                    </div>
+
+                    <button type="submit" id="generate-btn"
+                        class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-4 rounded-lg transition transform hover:scale-[1.02] shadow-lg">
+                        🔐 Generate & Send Password
+                    </button>
+
+                    <p id="form-message" class="text-center text-sm mt-4 hidden"></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- View Data Tab -->
+        <section id="view-data-tab" class="tab-content hidden">
+            <!-- Filters -->
+            <div class="bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-white mb-4">🔍 Search & Filter</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">Search</label>
+                        <input type="text" id="search-input"
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500"
+                            placeholder="Name, Email, ID...">
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">Academic Year</label>
+                        <select id="year-filter"
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2">
+                            <option value="">All Years</option>
+                            <option value="2024-2025">2024-2025</option>
+                            <option value="2025-2026">2025-2026</option>
+                            <option value="2026-2027">2026-2027</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">Department</label>
+                        <select id="dept-filter"
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2">
+                            <option value="">All Departments</option>
+                            <option value="MBA">MBA</option>
+                            <option value="CSE (MCA)">CSE (MCA)</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Computer Science Engineering">Computer Science Engineering</option>
+                            <option value="Electronics & Communication">Electronics & Communication</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-medium">Designation</label>
+                        <select id="designation-filter"
+                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2">
+                            <option value="">All Designations</option>
+                            <option value="Assistant Professor">Assistant Professor</option>
+                            <option value="Assistant Professor Grade-1">Assistant Professor Grade-1</option>
+                            <option value="Assistant Professor Grade-2">Assistant Professor Grade-2</option>
+                            <option value="Assistant Professor (Adhoc)">Assistant Professor (Adhoc)</option>
+                            <option value="Associate Professor">Associate Professor</option>
+                            <option value="Professor">Professor</option>
+                            <option value="Research Scholar">Research Scholar</option>
+                        </select>
+                    </div>
+
+                    <button onclick="searchFaculty()"
+                        class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition h-[42px]">
+                        🔍 Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Export Section -->
+            <div class="bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-white mb-4">📥 Export Data</h3>
+                <p class="text-gray-400 text-sm mb-4">Export will use the filters selected above (Academic Year,
+                    Department, Designation)</p>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="exportAllExcel()"
+                        class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition flex items-center gap-2 font-medium">
+                        📊 Export All to Excel
+                    </button>
+                    <button onclick="exportAllPDF()"
+                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition flex items-center gap-2 font-medium">
+                        📄 Export All Summary PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Faculty List -->
+            <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-gray-300 font-medium">Name</th>
+                            <th class="px-6 py-4 text-left text-gray-300 font-medium">Email</th>
+                            <th class="px-6 py-4 text-left text-gray-300 font-medium">Employee ID</th>
+                            <th class="px-6 py-4 text-left text-gray-300 font-medium">Designation</th>
+                            <th class="px-6 py-4 text-left text-gray-300 font-medium">Department</th>
+                            <th class="px-6 py-4 text-center text-gray-300 font-medium">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faculty-list" class="divide-y divide-gray-700">
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-400">
+                                Loading faculty data...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Faculty Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4">
+        <div class="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-gray-800 border-b border-gray-700 px-6 py-4 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white" id="modal-title">Faculty Details</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/login.js"></script>
+    <script src="../static/js/admin_dashboard.js"></script>
+</body>
+
+</html>
