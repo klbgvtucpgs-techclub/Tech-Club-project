@@ -1,9 +1,14 @@
 :root {
     --primary-color: #004d99;
-    /* College Blue */
     --accent-color: #f7b731;
-    /* Accent Yellow */
     --light-bg: #f4f4f9;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -12,312 +17,858 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: white; 
-    background-image: url('../images/vtu\ .png'); 
+    background-color: white;
+    background-image: url('../images/vtu\ .png');
     background-position: center center;
-    background-repeat: no-repeat; 
-    background-size: 50%; 
+    background-repeat: no-repeat;
+    background-size: 50%;
     background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
+/* ===================================
+   PAGE HEADER WITH ENHANCED ANIMATION
+   =================================== */
+.page-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #003366 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
 }
 
 .page-title {
-    text-align: center;
-    padding: 20px;
-    font-family: 'Franklin Gothic Medium';
-    background-color:transparent;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-size: 2.8em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: titleFloat 3s ease-in-out infinite;
 }
 
-/* ADDED: Style for the link container to center the button */
-.add-faculty-link-container {
-    text-align: right;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.page-subtitle {
+    font-size: 1.2em;
+    opacity: 0.95;
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
-.add-faculty-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #e0500d;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.add-faculty-button:hover {
-    background-color: #14d86c;
-}
-
-/* --- Directory Container (where images are) --- */
-.directory-container {
-    max-width: 1100px;
-    margin: 50px auto;
+/* ===================================
+   ACTION BAR WITH SEARCH
+   =================================== */
+.action-bar {
+    max-width: 1200px;
+    margin: -30px auto 40px;
     padding: 0 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
+    position: relative;
+    z-index: 10;
 }
 
-.faculty-member-card {
-    text-align: center;
+.action-bar-content {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    width: 250px;
+    padding: 20px 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.action-bar-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.search-container {
+    flex: 1;
+    min-width: 250px;
     position: relative;
 }
 
-.faculty-member-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.search-input {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all var(--transition-smooth);
+    background: var(--light-bg);
 }
 
-/* --- Professor Image (The Trigger/Icon) --- */
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 77, 153, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.add-faculty-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #e0500d 0%, #ff6b35 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1em;
+    transition: all var(--transition-smooth);
+    box-shadow: 0 4px 12px rgba(224, 80, 13, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.add-faculty-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.add-faculty-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.add-faculty-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(224, 80, 13, 0.4);
+}
+
+.add-faculty-button:active {
+    transform: translateY(-1px);
+}
+
+.button-icon {
+    font-size: 1.2em;
+    transition: transform var(--transition-smooth);
+}
+
+.add-faculty-button:hover .button-icon {
+    transform: rotate(90deg);
+}
+
+/* ===================================
+   DIRECTORY CONTAINER
+   =================================== */
+.directory-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    min-height: 400px;
+}
+
+.directory-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 35px;
+    margin-top: 20px;
+}
+
+/* ===================================
+   FACULTY CARDS WITH ENHANCED ANIMATION
+   =================================== */
+.faculty-member-card {
+    text-align: center;
+    background: white;
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: cardFadeIn 0.6s forwards;
+}
+
+.faculty-member-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transform: scaleX(0);
+    transition: transform var(--transition-smooth);
+}
+
+.faculty-member-card:hover::before {
+    transform: scaleX(1);
+}
+
+.faculty-member-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.faculty-member-card:nth-child(1) { animation-delay: 0.1s; }
+.faculty-member-card:nth-child(2) { animation-delay: 0.2s; }
+.faculty-member-card:nth-child(3) { animation-delay: 0.3s; }
+.faculty-member-card:nth-child(4) { animation-delay: 0.4s; }
+.faculty-member-card:nth-child(5) { animation-delay: 0.5s; }
+.faculty-member-card:nth-child(n+6) { animation-delay: 0.6s; }
+
 .professor-image {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
     border-radius: 50%;
     cursor: pointer;
-    border: 3px solid var(--primary-color);
-    margin-bottom: 10px;
-    transition: border-color 0.3s;
+    border: 4px solid var(--primary-color);
+    margin-bottom: 20px;
+    transition: all var(--transition-smooth);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .professor-image:hover {
     border-color: var(--accent-color);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
 }
 
-/* Style for the remove button on the directory card */
+.faculty-member-card h3 {
+    font-size: 1.3em;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.faculty-member-card p {
+    color: #666;
+    font-size: 0.95em;
+    margin-bottom: 15px;
+}
+
 .remove-button-directory {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: #dc3545;
-    /* Red for remove */
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, var(--danger-color), #c82333);
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 3px 8px;
-    font-size: 0.8em;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.85em;
     cursor: pointer;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all var(--transition-smooth);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.faculty-member-card:hover .remove-button-directory {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .remove-button-directory:hover {
-    background-color: #c82333;
+    background: linear-gradient(135deg, #c82333, #bd2130);
+    transform: scale(1.1);
 }
 
-
-/* ------------------------------------- */
-/* --- MODAL STYLES (The Pop-up) --- */
-/* ------------------------------------- */
-
+/* ===================================
+   MODAL STYLES WITH SMOOTH ANIMATIONS
+   =================================== */
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1000;
-    /* Sit on top of everything */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Dark semi-transparent background */
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    transition: background-color 0.3s, backdrop-filter 0.3s;
+}
+
+.modal.active {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
-    /* 5% from the top and centered */
+    margin: 3% auto;
     padding: 0;
-    /* Changed to 0 as profile-header/body will handle padding */
-    border: 1px solid #888;
+    border: none;
     width: 95%;
-    /* Responsive width */
-    max-width: 900px;
-    /* Maximum size */
-    border-radius: 10px;
+    max-width: 950px;
+    border-radius: 20px;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-
-    /* ANIMATION INITIAL STATE */
-    transform: scale(0.9);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    transform: scale(0.7) translateY(-50px);
     opacity: 0;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* --- Animation Final State (Triggered by JS 'active' class) --- */
 .modal.active .modal-content {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
     opacity: 1;
 }
 
-/* --- Close Button (The 'X') --- */
 .close-button {
     color: white;
-    /* Changed color for visibility on the dark header */
-    float: right;
-    font-size: 32px;
-    font-weight: bold;
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 20px;
+    right: 25px;
+    font-size: 36px;
+    font-weight: bold;
     cursor: pointer;
-    line-height: 1;
     z-index: 10;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-smooth);
+    line-height: 1;
 }
 
-.close-button:hover,
-.close-button:focus {
-    color: var(--accent-color);
+.close-button:hover {
+    background: var(--accent-color);
+    color: #333;
+    transform: rotate(90deg) scale(1.1);
 }
 
-/* Ensure the profile content scrolls within the modal */
 .modal-profile-body {
-    max-height: 85vh;
-    /* Limit the scrollable area */
+    max-height: 75vh;
     overflow-y: auto;
-    padding: 20px;
+    padding: 30px;
+    scroll-behavior: smooth;
 }
 
-
-/* ------------------------------------- */
-/* --- PROFILE CARD & ACCORDION STYLES --- */
-/* ------------------------------------- */
-
-.container {
-    max-width: 100%;
-    margin: 0 auto;
+.modal-profile-body::-webkit-scrollbar {
+    width: 8px;
 }
 
-.profile-header {
+.modal-profile-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-profile-body::-webkit-scrollbar-thumb {
     background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.modal-profile-body::-webkit-scrollbar-thumb:hover {
+    background: #003366;
+}
+
+/* ===================================
+   PROFILE HEADER
+   =================================== */
+.profile-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #003366 100%);
     color: white;
-    padding: 30px 20px;
+    padding: 40px 30px;
     text-align: center;
-    margin-bottom: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
 }
 
 .profile-header h1 {
-    margin-bottom: 5px;
-    font-size: 2em;
+    margin-bottom: 8px;
+    font-size: 2.2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: fadeInScale 0.6s ease-out;
 }
 
-/* ADDED: Style for the faculty photo inside the modal */
+.profile-header p {
+    font-size: 1.1em;
+    opacity: 0.95;
+}
+
 .profile-photo {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
+    border: 5px solid white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
+    animation: photoReveal 0.8s ease-out;
 }
 
+/* ===================================
+   DETAILS CARDS
+   =================================== */
 .details-card {
     background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid #eee;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--primary-color);
+    transition: all var(--transition-smooth);
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.details-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+}
+
+.details-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    border-bottom: 2px solid var(--light-bg);
+    padding-bottom: 8px;
 }
 
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+    gap: 20px;
 }
 
 .contact-grid strong {
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     color: var(--primary-color);
+    font-size: 0.95em;
 }
 
+.contact-grid a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.contact-grid a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* ===================================
+   ACCORDION STYLES
+   =================================== */
 .accordion-button {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #003366);
     color: white;
     cursor: pointer;
-    padding: 18px;
+    padding: 18px 24px;
     width: 100%;
     border: none;
     text-align: left;
     outline: none;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
-    border-radius: 6px;
-    margin-top: 10px;
+    font-size: 1.15em;
+    font-weight: 600;
+    transition: all var(--transition-smooth);
+    border-radius: 10px;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.accordion-button::after {
+    content: '▼';
+    position: absolute;
+    right: 24px;
+    transition: transform var(--transition-smooth);
+    font-size: 0.9em;
+}
+
+.accordion-button.active::after {
+    transform: rotate(180deg);
 }
 
 .accordion-button:hover {
-    background-color: #003366;
+    background: linear-gradient(135deg, #003366, var(--primary-color));
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
 }
 
 .accordion-button.active {
-    background-color: var(--accent-color);
+    background: linear-gradient(135deg, var(--accent-color), #ffd93d);
     color: #333;
+    box-shadow: var(--shadow-sm);
 }
 
 .accordion-content {
-    padding: 0 18px;
+    padding: 0;
     background-color: white;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 15px;
+}
+
+.accordion-content.active {
+    padding: 20px;
+    border: 2px solid var(--light-bg);
     border-top: none;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
 }
 
 .accordion-content h3 {
-    margin: 15px 0 10px 0;
+    margin: 20px 0 12px 0;
     color: var(--accent-color);
-}
-
-.accordion-content table,
-.accordion-content ul,
-.accordion-content p {
-    margin: 15px 0;
-    padding-bottom: 10px;
+    font-size: 1.2em;
 }
 
 .accordion-content table {
     width: 100%;
     border-collapse: collapse;
+    margin: 15px 0;
+    animation: fadeIn 0.5s ease-out;
 }
 
 .accordion-content th,
 .accordion-content td {
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    border: 1px solid #ddd;
     text-align: left;
 }
 
 .accordion-content th {
     background-color: var(--light-bg);
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
+.accordion-content tr:hover {
+    background-color: #f9f9f9;
+}
+
+.accordion-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.accordion-content li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    transition: background-color var(--transition-fast);
+}
+
+.accordion-content li:hover {
+    background-color: var(--light-bg);
+    padding-left: 15px;
+}
+
+/* ===================================
+   EMPTY STATE
+   =================================== */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    animation: fadeInScale 0.6s ease-out;
+}
+
+.empty-icon {
+    font-size: 6em;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+.empty-state h2 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.empty-state-button {
+    display: inline-block;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, var(--primary-color), #003366);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: all var(--transition-smooth);
+    box-shadow: var(--shadow-md);
+}
+
+.empty-state-button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ===================================
+   LOADING SPINNER
+   =================================== */
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.loading-spinner.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid var(--light-bg);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-spinner p {
+    margin-top: 20px;
+    color: var(--primary-color);
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* ===================================
+   SCROLL TO TOP BUTTON
+   =================================== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), #003366);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5em;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0);
+    transition: all var(--transition-smooth);
+    box-shadow: var(--shadow-md);
+    z-index: 999;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.scroll-to-top:hover {
+    background: linear-gradient(135deg, var(--accent-color), #ffd93d);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ===================================
+   KEYFRAME ANIMATIONS
+   =================================== */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes photoReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
 @media (max-width: 768px) {
+    .page-title {
+        font-size: 2em;
+    }
+    
+    .page-subtitle {
+        font-size: 1em;
+    }
+    
+    .action-bar-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .add-faculty-button {
+        justify-content: center;
+    }
+    
+    .directory-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 25px;
+    }
+    
     .modal-content {
         margin: 10% auto;
+        width: 98%;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 40px 15px 30px;
+    }
+    
+    .page-title {
+        font-size: 1.6em;
+    }
+    
+    .directory-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .professor-image {
+        width: 140px;
+        height: 140px;
     }
 }

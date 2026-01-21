@@ -1,251 +1,489 @@
-/* GLOBAL & LAYOUT STYLES - Styles applied to the body and main page layout.*/
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Animated Background Styling */
-    background: linear-gradient(-45deg, #ff5e00, #ffffff, #28a745, #f7690b);
-    background-size: 400% 400%;
-    animation: background-pan 30s ease infinite;
-    /* Centering Flexbox Properties */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    color: #333;
-}
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
 
-/* CONTAINER & ANIMATION STYLES - Styles for the main form container and initial load animation.*/
+ :root {
+     --primary: #6366f1;
+     --primary-dark: #4f46e5;
+     --primary-light: #818cf8;
+     --success: #10b981;
+     --error: #ef4444;
+     --warning: #f59e0b;
+     --bg-dark: #0f172a;
+     --bg-card: #1e293b;
+     --text-primary: #f1f5f9;
+     --text-secondary: #94a3b8;
+     --border: #334155;
+ }
 
-.container {
-    background: rgba(221, 220, 220, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 35px 45px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    /* Initial state for fadeInSlide animation */
-    opacity: 0; 
-    transform: translateY(20px);
-    animation: fadeInSlide 0.8s ease-out forwards;
-}
+ body {
+     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 20px;
+     position: relative;
+     overflow-x: hidden;
+ }
 
-@keyframes fadeInSlide {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+ body::before {
+     content: '';
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background:
+         radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+         radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+         radial-gradient(circle at 40% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+     animation: float 20s ease-in-out infinite;
+     pointer-events: none;
+ }
 
+ @keyframes float {
 
-/* TYPOGRAPHY & HEADER STYLES - Styles for H1 and P elements within the container.*/
+     0%,
+     100% {
+         transform: translateY(0) scale(1);
+     }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 5px;
-}
+     50% {
+         transform: translateY(-20px) scale(1.05);
+     }
+ }
 
-p {
-    text-align: center;
-    color: #666;
-    margin-bottom: 20px;
-}
+ .container {
+     background: rgba(30, 41, 59, 0.95);
+     backdrop-filter: blur(20px);
+     border-radius: 24px;
+     padding: 48px;
+     max-width: 600px;
+     width: 100%;
+     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+     border: 1px solid rgba(255, 255, 255, 0.1);
+     position: relative;
+     animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+     z-index: 1;
+ }
 
-/*FORM GROUP & LABEL STYLES - Styles for structuring form inputs.*/
-.form-group {
-    margin-bottom: 20px;
-}
+ @keyframes slideUp {
+     from {
+         opacity: 0;
+         transform: translateY(40px);
+     }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-}
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
 
-/* INPUT FIELD STYLES - Styles for all text, email, and tel input fields.*/
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box; /* Ensures padding doesn't affect total width */
-    transition: border-color 0.3s;
-}
+ .header {
+     text-align: center;
+     margin-bottom: 48px;
+     position: relative;
+ }
 
-input:focus {
-    border-color: #007bff;
-    outline: none;
-}
+ .icon-wrapper {
+     width: 80px;
+     height: 80px;
+     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+     border-radius: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto 24px;
+     box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+     animation: pulse 2s ease-in-out infinite;
+     position: relative;
+     overflow: hidden;
+ }
 
-/* BUTTON STYLES - Styles for the primary action button (Generate & Send Password).*/
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #28a745; /* Success color for generating */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
-}
+ .icon-wrapper::before {
+     content: '';
+     position: absolute;
+     top: -50%;
+     left: -50%;
+     width: 200%;
+     height: 200%;
+     background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+     animation: shine 3s infinite;
+ }
 
-button:hover:not(:disabled) {
-    background-color: #218838;
-}
+ @keyframes shine {
+     0% {
+         transform: translateX(-100%) translateY(-100%) rotate(45deg);
+     }
 
-button:disabled {
-    background-color: #90ee90;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
+     100% {
+         transform: translateX(100%) translateY(100%) rotate(45deg);
+     }
+ }
 
-/* MESSAGE/ALERT STYLES - Styles for displaying success or error messages (via JavaScript).*/
-.message {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-}
+ @keyframes pulse {
 
-.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
+     0%,
+     100% {
+         transform: scale(1);
+         box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+     }
 
-.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}/* GLOBAL & LAYOUT STYLES - Styles applied to the body and main page layout.*/
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Animated Background Styling */
-    background: linear-gradient(-45deg, #ff5e00, #ffffff, #28a745, #f7690b);
-    background-size: 400% 400%;
-    animation: background-pan 30s ease infinite;
-    /* Centering Flexbox Properties */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    color: #333;
-}
+     50% {
+         transform: scale(1.05);
+         box-shadow: 0 15px 50px rgba(99, 102, 241, 0.6);
+     }
+ }
 
-/* CONTAINER & ANIMATION STYLES - Styles for the main form container and initial load animation.*/
+ .icon-wrapper svg {
+     width: 40px;
+     height: 40px;
+     stroke: white;
+     position: relative;
+     z-index: 1;
+ }
 
-.container {
-    background: rgba(221, 220, 220, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 35px 45px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    /* Initial state for fadeInSlide animation */
-    opacity: 0; 
-    transform: translateY(20px);
-    animation: fadeInSlide 0.8s ease-out forwards;
-}
+ h1 {
+     font-size: 32px;
+     font-weight: 700;
+     color: var(--text-primary);
+     margin-bottom: 12px;
+     letter-spacing: -0.5px;
+ }
 
-@keyframes fadeInSlide {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+ .subtitle {
+     color: var(--text-secondary);
+     font-size: 16px;
+     line-height: 1.6;
+ }
 
+ .form-group {
+     margin-bottom: 24px;
+     animation: fadeIn 0.6s ease-out backwards;
+ }
 
-/* TYPOGRAPHY & HEADER STYLES - Styles for H1 and P elements within the container.*/
+ .form-group:nth-child(1) {
+     animation-delay: 0.1s;
+ }
 
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 5px;
-}
+ .form-group:nth-child(2) {
+     animation-delay: 0.2s;
+ }
 
-p {
-    text-align: center;
-    color: #666;
-    margin-bottom: 20px;
-}
+ .form-group:nth-child(3) {
+     animation-delay: 0.3s;
+ }
 
-/*FORM GROUP & LABEL STYLES - Styles for structuring form inputs.*/
-.form-group {
-    margin-bottom: 20px;
-}
+ .form-group:nth-child(4) {
+     animation-delay: 0.4s;
+ }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-}
+ @keyframes fadeIn {
+     from {
+         opacity: 0;
+         transform: translateY(20px);
+     }
 
-/* INPUT FIELD STYLES - Styles for all text, email, and tel input fields.*/
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box; /* Ensures padding doesn't affect total width */
-    transition: border-color 0.3s;
-}
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
 
-input:focus {
-    border-color: #007bff;
-    outline: none;
-}
+ label {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     color: var(--text-primary);
+     font-weight: 600;
+     margin-bottom: 10px;
+     font-size: 14px;
+     text-transform: uppercase;
+     letter-spacing: 0.5px;
+ }
 
-/* BUTTON STYLES - Styles for the primary action button (Generate & Send Password).*/
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #28a745; /* Success color for generating */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s;
-}
+ .label-icon {
+     width: 18px;
+     height: 18px;
+     stroke: var(--primary-light);
+ }
 
-button:hover:not(:disabled) {
-    background-color: #218838;
-}
+ .required {
+     color: var(--error);
+     font-size: 16px;
+ }
 
-button:disabled {
-    background-color: #90ee90;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
+ .input-wrapper {
+     position: relative;
+ }
 
-/* MESSAGE/ALERT STYLES - Styles for displaying success or error messages (via JavaScript).*/
-.message {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-}
+ input {
+     width: 100%;
+     padding: 16px 48px 16px 16px;
+     background: rgba(15, 23, 42, 0.6);
+     border: 2px solid var(--border);
+     border-radius: 12px;
+     color: var(--text-primary);
+     font-size: 16px;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+     outline: none;
+ }
 
-.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
+ input:focus {
+     border-color: var(--primary);
+     background: rgba(15, 23, 42, 0.8);
+     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+     transform: translateY(-2px);
+ }
 
-.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
+ input.valid {
+     border-color: var(--success);
+     background: rgba(16, 185, 129, 0.05);
+ }
+
+ input.invalid {
+     border-color: var(--error);
+     background: rgba(239, 68, 68, 0.05);
+ }
+
+ input::placeholder {
+     color: var(--text-secondary);
+ }
+
+ .input-icon {
+     position: absolute;
+     right: 16px;
+     top: 50%;
+     transform: translateY(-50%);
+     width: 20px;
+     height: 20px;
+     opacity: 0;
+     transition: all 0.3s ease;
+     pointer-events: none;
+ }
+
+ .input-icon.show {
+     opacity: 1;
+ }
+
+ .input-icon.success {
+     stroke: var(--success);
+ }
+
+ .input-icon.error {
+     stroke: var(--error);
+ }
+
+ .error-text {
+     display: block;
+     color: var(--error);
+     font-size: 13px;
+     margin-top: 8px;
+     padding-left: 4px;
+     min-height: 18px;
+     animation: shake 0.4s ease;
+ }
+
+ @keyframes shake {
+
+     0%,
+     100% {
+         transform: translateX(0);
+     }
+
+     25% {
+         transform: translateX(-5px);
+     }
+
+     75% {
+         transform: translateX(5px);
+     }
+ }
+
+ .submit-btn {
+     width: 100%;
+     padding: 18px;
+     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+     color: white;
+     border: none;
+     border-radius: 12px;
+     font-size: 16px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+     position: relative;
+     overflow: hidden;
+     margin-top: 32px;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+ }
+
+ .submit-btn::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: -100%;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+     transition: left 0.5s ease;
+ }
+
+ .submit-btn:hover::before {
+     left: 100%;
+ }
+
+ .submit-btn:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+ }
+
+ .submit-btn:active {
+     transform: translateY(-1px);
+ }
+
+ .submit-btn:disabled {
+     opacity: 0.6;
+     cursor: not-allowed;
+     transform: none;
+ }
+
+ .btn-content {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 10px;
+ }
+
+ .spinner {
+     width: 20px;
+     height: 20px;
+     border: 2px solid rgba(255, 255, 255, 0.3);
+     border-top-color: white;
+     border-radius: 50%;
+     animation: spin 0.8s linear infinite;
+     display: none;
+ }
+
+ @keyframes spin {
+     to {
+         transform: rotate(360deg);
+     }
+ }
+
+ .submit-btn.loading .spinner {
+     display: block;
+ }
+
+ .submit-btn.loading .btn-text {
+     display: none;
+ }
+
+ .message {
+     margin-top: 24px;
+     padding: 16px 20px;
+     border-radius: 12px;
+     font-size: 14px;
+     font-weight: 500;
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     opacity: 0;
+     transform: translateY(-10px);
+     transition: all 0.3s ease;
+     pointer-events: none;
+ }
+
+ .message.show {
+     opacity: 1;
+     transform: translateY(0);
+     pointer-events: auto;
+ }
+
+ .message.success {
+     background: rgba(16, 185, 129, 0.1);
+     border: 1px solid rgba(16, 185, 129, 0.3);
+     color: var(--success);
+ }
+
+ .message.error {
+     background: rgba(239, 68, 68, 0.1);
+     border: 1px solid rgba(239, 68, 68, 0.3);
+     color: var(--error);
+ }
+
+ .message-icon {
+     width: 20px;
+     height: 20px;
+     flex-shrink: 0;
+ }
+
+ .particles {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+     z-index: 0;
+ }
+
+ .particle {
+     position: absolute;
+     width: 4px;
+     height: 4px;
+     background: rgba(255, 255, 255, 0.5);
+     border-radius: 50%;
+     animation: particleFloat 15s infinite;
+ }
+
+ @keyframes particleFloat {
+
+     0%,
+     100% {
+         transform: translateY(0) translateX(0);
+         opacity: 0;
+     }
+
+     10% {
+         opacity: 1;
+     }
+
+     90% {
+         opacity: 1;
+     }
+
+     100% {
+         transform: translateY(-100vh) translateX(50px);
+         opacity: 0;
+     }
+ }
+
+ @media (max-width: 640px) {
+     .container {
+         padding: 32px 24px;
+     }
+
+     h1 {
+         font-size: 28px;
+     }
+
+     .subtitle {
+         font-size: 14px;
+     }
+
+     .icon-wrapper {
+         width: 64px;
+         height: 64px;
+     }
+
+     .icon-wrapper svg {
+         width: 32px;
+         height: 32px;
+     }
+ }
